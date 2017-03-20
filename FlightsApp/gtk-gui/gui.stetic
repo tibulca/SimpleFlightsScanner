@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stetic-interface>
+  <configuration>
+    <images-root-path>..</images-root-path>
+  </configuration>
+  <import>
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <widget-library name="../bin/Debug/FlightsApp.exe" internal="true" />
+  </import>
+  <widget class="Gtk.Window" id="MainWindow" design-size="1264 733">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">Flights</property>
+    <property name="Icon">stock:gtk-zoom-fit Menu</property>
+    <property name="WindowPosition">CenterAlways</property>
+    <signal name="DeleteEvent" handler="OnDeleteEvent" />
+    <child>
+      <widget class="Gtk.Fixed" id="fixed1">
+        <property name="MemberName" />
+        <property name="HasWindow">False</property>
+        <child>
+          <widget class="Gtk.Calendar" id="calendar2">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="DisplayOptions">35</property>
+            <signal name="PrevMonth" handler="OnCalendar2PrevMonth" />
+            <signal name="DaySelected" handler="OnCalendar2DaySelected" />
+            <signal name="NextMonth" handler="OnCalendar2NextMonth" />
+            <signal name="MonthChanged" handler="OnCalendar2MonthChanged" />
+            <signal name="PrevYear" handler="OnCalendar2PrevYear" />
+            <signal name="NextYear" handler="OnCalendar2NextYear" />
+          </widget>
+          <packing>
+            <property name="X">15</property>
+            <property name="Y">11</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Calendar" id="calendar3">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="DisplayOptions">35</property>
+          </widget>
+          <packing>
+            <property name="X">250</property>
+            <property name="Y">8</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="button1">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Search</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnButton1Clicked" />
+          </widget>
+          <packing>
+            <property name="X">515</property>
+            <property name="Y">23</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <widget class="Gtk.Alignment" id="alignment1">
+            <property name="MemberName" />
+            <child>
+              <placeholder />
+            </child>
+          </widget>
+          <packing>
+            <property name="X">370</property>
+            <property name="Y">268</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow">
+            <property name="MemberName" />
+            <property name="WidthRequest">1200</property>
+            <property name="HeightRequest">500</property>
+            <property name="ShadowType">In</property>
+            <child>
+              <widget class="Gtk.TextView" id="textview1">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="ShowScrollbars">True</property>
+                <property name="Text" translatable="yes" />
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="X">15</property>
+            <property name="Y">200</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</stetic-interface>
