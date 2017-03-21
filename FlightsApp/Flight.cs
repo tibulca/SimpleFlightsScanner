@@ -6,8 +6,8 @@ namespace FlightsApp
 {
 	public class Flight
 	{
-		public string From { get; set; }
-		public string To { get; set; }
+		public Airport From { get; set; }
+		public Airport To { get; set; }
 		public double Price { get; set; }
 		public string CurrencyCode { get; set; }
 		public DateTime DateFrom { get; set; }
@@ -23,8 +23,8 @@ namespace FlightsApp
 			return flight.departureDates
 						 .Select((date) => new Flight
 						 {
-						 	From = flight.departureStation,
-							To = flight.arrivalStation,
+							From = Airport.FromCode(flight.departureStation),
+							To = Airport.FromCode(flight.arrivalStation),
 							DateFrom = date,
 							DateTo = DateTime.MinValue,
 							Price = flight.price.amount,

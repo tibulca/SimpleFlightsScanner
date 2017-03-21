@@ -6,15 +6,32 @@ using System.Linq;
 
 namespace FlightsApp
 {
-	public class Wizzair
+	public class WizzairSearchProvider : ISearchProvider
 	{
-		private readonly Logger logger;
+		private static readonly List<Airport> AirportsHandled = new List<Airport>
+		{
+			Airport.Suceava,
+			Airport.LondonLuton,
+			Airport.RomeCiampino,
+			Airport.Bologna,
+			Airport.MilanBergamo,
+			Airport.VeniceTreviso
+		};
+
+		private readonly ILogger logger;
 		private readonly IApiHttpClient apiHttpClient;
 
-		public Wizzair(Logger logger, IApiHttpClient apiHttpClient)
+		public string Name { get { return "Wizzair"; } }
+
+		public WizzairSearchProvider(ILogger logger, IApiHttpClient apiHttpClient)
 		{
 			this.logger = logger;
 			this.apiHttpClient = apiHttpClient;
+		}
+
+		public bool CanHandleRoute(Route route)
+		{
+			return AirportsHandled.Contains(route.Airport1) && AirportsHandled.Contains(route.Airport2);
 		}
 
 		public async Task<List<Flight>> Search(SearchCriteria searchCriteria)
@@ -28,16 +45,6 @@ namespace FlightsApp
 											.Union(wizzairFlights.returnFlights)
 											.SelectMany((flightsOnDate) => Flight.FromWizzairFlight(flightsOnDate))
 											.ToList();
-
-				logger.Info("Wizzair: " + searchCriteria.From + " - " + searchCriteria.To + ", " + searchCriteria.FromDate + " - " + searchCriteria.ToDate);
-	            logger.Info("flights: " + flights.Count);
-				if (flights.Count > 0)
-				{
-					logger.Info("cheapest: " + flights.Min(f => f.Price));
-					logger.Info("most expensive: " + flights.Max(f => f.Price));
-					logger.Info("currency: " + flights.First().CurrencyCode);
-				}
-				logger.Info(JSONSerializer.ToJSON(flights));
 
 				return flights;
 			}
@@ -54,12 +61,12 @@ namespace FlightsApp
 		{
 			var url = "https://be.wizzair.com/4.1.0/Api/search/timetable";
 			var contentType = "application/json";
-			var requestBody = "{\"flightList\":[{\"departureStation\":\"" + searchCriteria.From +
-							  "\",\"arrivalStation\":\"" + searchCriteria.To +
+			var requestBody = "{\"flightList\":[{\"departureStation\":\"" + searchCriteria.Route.Airport1.Code +
+							  "\",\"arrivalStation\":\"" + searchCriteria.Route.Airport2.Code +
                               "\",\"from\":\"" + searchCriteria.FromDateString +
 							  "\",\"to\":\"" + searchCriteria.ToDateString +
-							  "\"},{\"departureStation\":\"" + searchCriteria.To +
-							  "\",\"arrivalStation\":\"" + searchCriteria.From +
+							  "\"},{\"departureStation\":\"" + searchCriteria.Route.Airport2.Code +
+							  "\",\"arrivalStation\":\"" + searchCriteria.Route.Airport1.Code +
                               "\",\"from\":\"" + searchCriteria.FromDateString +
 							  "\",\"to\":\"" + searchCriteria.ToDateString +
 							  "\"}],\"priceType\":\"wdc\"}";

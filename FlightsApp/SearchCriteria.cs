@@ -4,8 +4,7 @@ namespace FlightsApp
 {
 	public class SearchCriteria
 	{
-		public string From { get; set; }
-		public string To { get; set; }
+		public Route Route;
 
 		public DateTime FromDate { get; set; }
 		public DateTime ToDate { get; set; }

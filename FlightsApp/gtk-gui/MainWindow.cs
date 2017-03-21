@@ -5,17 +5,17 @@ public partial class MainWindow
 {
 	private global::Gtk.Fixed fixed1;
 
-	private global::Gtk.Calendar calendar2;
+	private global::Gtk.Calendar calendarStartDate;
 
-	private global::Gtk.Calendar calendar3;
+	private global::Gtk.Calendar calendarEndDate;
 
-	private global::Gtk.Button button1;
+	private global::Gtk.Button btnSearch;
 
 	private global::Gtk.Alignment alignment1;
 
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 
-	private global::Gtk.TextView textview1;
+	private global::Gtk.TextView txtInfo;
 
 	protected virtual void Build()
 	{
@@ -30,31 +30,31 @@ public partial class MainWindow
 		this.fixed1.Name = "fixed1";
 		this.fixed1.HasWindow = false;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.calendar2 = new global::Gtk.Calendar();
-		this.calendar2.CanFocus = true;
-		this.calendar2.Name = "calendar2";
-		this.calendar2.DisplayOptions = ((global::Gtk.CalendarDisplayOptions)(35));
-		this.fixed1.Add(this.calendar2);
-		global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.calendar2]));
+		this.calendarStartDate = new global::Gtk.Calendar();
+		this.calendarStartDate.CanFocus = true;
+		this.calendarStartDate.Name = "calendarStartDate";
+		this.calendarStartDate.DisplayOptions = ((global::Gtk.CalendarDisplayOptions)(35));
+		this.fixed1.Add(this.calendarStartDate);
+		global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.calendarStartDate]));
 		w1.X = 15;
-		w1.Y = 11;
+		w1.Y = 10;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.calendar3 = new global::Gtk.Calendar();
-		this.calendar3.CanFocus = true;
-		this.calendar3.Name = "calendar3";
-		this.calendar3.DisplayOptions = ((global::Gtk.CalendarDisplayOptions)(35));
-		this.fixed1.Add(this.calendar3);
-		global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.calendar3]));
+		this.calendarEndDate = new global::Gtk.Calendar();
+		this.calendarEndDate.CanFocus = true;
+		this.calendarEndDate.Name = "calendarEndDate";
+		this.calendarEndDate.DisplayOptions = ((global::Gtk.CalendarDisplayOptions)(35));
+		this.fixed1.Add(this.calendarEndDate);
+		global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.calendarEndDate]));
 		w2.X = 250;
-		w2.Y = 8;
+		w2.Y = 10;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.button1 = new global::Gtk.Button();
-		this.button1.CanFocus = true;
-		this.button1.Name = "button1";
-		this.button1.UseUnderline = true;
-		this.button1.Label = global::Mono.Unix.Catalog.GetString("Search");
-		this.fixed1.Add(this.button1);
-		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.button1]));
+		this.btnSearch = new global::Gtk.Button();
+		this.btnSearch.CanFocus = true;
+		this.btnSearch.Name = "btnSearch";
+		this.btnSearch.UseUnderline = true;
+		this.btnSearch.Label = global::Mono.Unix.Catalog.GetString("Search");
+		this.fixed1.Add(this.btnSearch);
+		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.btnSearch]));
 		w3.X = 515;
 		w3.Y = 23;
 		// Container child fixed1.Gtk.Fixed+FixedChild
@@ -71,10 +71,10 @@ public partial class MainWindow
 		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
 		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
 		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-		this.textview1 = new global::Gtk.TextView();
-		this.textview1.CanFocus = true;
-		this.textview1.Name = "textview1";
-		this.GtkScrolledWindow.Add(this.textview1);
+		this.txtInfo = new global::Gtk.TextView();
+		this.txtInfo.CanFocus = true;
+		this.txtInfo.Name = "txtInfo";
+		this.GtkScrolledWindow.Add(this.txtInfo);
 		this.fixed1.Add(this.GtkScrolledWindow);
 		global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.GtkScrolledWindow]));
 		w6.X = 15;
@@ -88,12 +88,12 @@ public partial class MainWindow
 		this.DefaultHeight = 733;
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
-		this.calendar2.PrevMonth += new global::System.EventHandler(this.OnCalendar2PrevMonth);
-		this.calendar2.DaySelected += new global::System.EventHandler(this.OnCalendar2DaySelected);
-		this.calendar2.NextMonth += new global::System.EventHandler(this.OnCalendar2NextMonth);
-		this.calendar2.MonthChanged += new global::System.EventHandler(this.OnCalendar2MonthChanged);
-		this.calendar2.PrevYear += new global::System.EventHandler(this.OnCalendar2PrevYear);
-		this.calendar2.NextYear += new global::System.EventHandler(this.OnCalendar2NextYear);
-		this.button1.Clicked += new global::System.EventHandler(this.OnButton1Clicked);
+		this.calendarStartDate.PrevMonth += new global::System.EventHandler(this.OnCalendar2PrevMonth);
+		this.calendarStartDate.DaySelected += new global::System.EventHandler(this.OnCalendar2DaySelected);
+		this.calendarStartDate.NextMonth += new global::System.EventHandler(this.OnCalendar2NextMonth);
+		this.calendarStartDate.MonthChanged += new global::System.EventHandler(this.OnCalendar2MonthChanged);
+		this.calendarStartDate.PrevYear += new global::System.EventHandler(this.OnCalendar2PrevYear);
+		this.calendarStartDate.NextYear += new global::System.EventHandler(this.OnCalendar2NextYear);
+		this.btnSearch.Clicked += new global::System.EventHandler(this.OnButton1Clicked);
 	}
 }

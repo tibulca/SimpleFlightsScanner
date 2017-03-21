@@ -18,7 +18,7 @@
         <property name="MemberName" />
         <property name="HasWindow">False</property>
         <child>
-          <widget class="Gtk.Calendar" id="calendar2">
+          <widget class="Gtk.Calendar" id="calendarStartDate">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="DisplayOptions">35</property>
@@ -31,22 +31,22 @@
           </widget>
           <packing>
             <property name="X">15</property>
-            <property name="Y">11</property>
+            <property name="Y">10</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Calendar" id="calendar3">
+          <widget class="Gtk.Calendar" id="calendarEndDate">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="DisplayOptions">35</property>
           </widget>
           <packing>
             <property name="X">250</property>
-            <property name="Y">8</property>
+            <property name="Y">10</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Button" id="button1">
+          <widget class="Gtk.Button" id="btnSearch">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
@@ -120,7 +120,7 @@
             <property name="HeightRequest">500</property>
             <property name="ShadowType">In</property>
             <child>
-              <widget class="Gtk.TextView" id="textview1">
+              <widget class="Gtk.TextView" id="txtInfo">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
