@@ -13,12 +13,12 @@ namespace FlightsApp
         public FlightsService(ILogger logger)
         {
             this.logger = logger;
-            this.apiHttpClient = new ApiHttpClient();//new ApiHttpClientMock();
-            this.logger = logger;
-            this.searchProviders = new List<ISearchProvider>
+
+            apiHttpClient = new ApiHttpClient();//new ApiHttpClientMock();
+            searchProviders = new List<ISearchProvider>
             {
-                new WizzairSearchProvider(this.logger, this.apiHttpClient),
-                new RyanairSearchProvider(this.logger, this.apiHttpClient),
+                new WizzairSearchProvider(logger, apiHttpClient),
+                new RyanairSearchProvider(logger, apiHttpClient),
             };
         }
 
@@ -27,11 +27,11 @@ namespace FlightsApp
             logger.Info($"Search flights from date range {startDate.ToString("dd/MMM/yyyy")} - {endDate.ToString("dd/MMM/yyyy")}");
             logger.Info(string.Empty);
 
-            var activeSearchProviders = this.searchProviders.Where(sp => airlines.Contains(sp.Name)).ToList();
+            var activeSearchProviders = searchProviders.Where(sp => airlines.Contains(sp.Airline.Name)).ToList();
 
             var flights = new List<Flight>();
 
-            RouteConfiguration.Routes.ForEach(route =>
+            Configuration.Routes.ForEach(route =>
             {
                 logger.Info($"ROUTE: {route.Airport1} - {route.Airport2}");
 
@@ -61,7 +61,7 @@ namespace FlightsApp
 
         private void LogFlights(List<Flight> flights, ISearchProvider searchProvider, Route route)
         {
-            logger.Info($"\t{searchProvider.Name}");
+            logger.Info($"\t{searchProvider.Airline.Name}");
 
             LogFlightStatistics(flights.Where(f => f.From.Equals(route.Airport1)).ToList(), "-->");
             LogFlightStatistics(flights.Where(f => f.From.Equals(route.Airport2)).ToList(), "<--");

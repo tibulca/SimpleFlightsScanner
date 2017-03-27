@@ -1,76 +1,44 @@
-using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System;
 
 namespace FlightsApp
 {
-	public class RyanairSearchProvider : ISearchProvider
+	public class RyanairSearchProvider : SearchProviderBase, ISearchProvider
 	{
         private const int MAX_FLEX_DAYS = 6;
-		private static readonly List<Airport> AirportsHandled = new List<Airport>
+
+        public RyanairSearchProvider(ILogger logger, IApiHttpClient apiHttpClient)
+            : base(Airline.Ryanair, logger, apiHttpClient)
 		{
-			Airport.Bucharest,
-            Airport.Oradea,
-
-            Airport.Dublin,
-            Airport.LondonLuton,
-            Airport.RomeCiampino,
-            Airport.Bologna,
-            Airport.MilanBergamo,
-            Airport.VeniceTreviso
-        };
-
-		private readonly ILogger logger;
-		private readonly IApiHttpClient apiHttpClient;
-
-		public string Name { get { return "Ryanair"; } }
-
-		public RyanairSearchProvider(ILogger logger, IApiHttpClient apiHttpClient)
-		{
-			this.logger = logger;
-			this.apiHttpClient = apiHttpClient;
 		}
 
-		public bool CanHandleRoute(Route route)
+		protected override async Task<List<Flight>> SearchFlights(SearchCriteria searchCriteria)
 		{
-			return AirportsHandled.Contains(route.Airport1) && AirportsHandled.Contains(route.Airport2);
+			var flights = new List<Flight>();
+            var currentSearchCriteria = GetCurrentSearchCriteria(searchCriteria.Route, searchCriteria.FromDate, searchCriteria.ToDate);
+
+            while (currentSearchCriteria.FromDate <= searchCriteria.ToDate)
+            {
+                var airlineFlights = await DownloadFlightsAsync(currentSearchCriteria);
+                flights.AddRange(Flight.FromRyanairFlight(airlineFlights));
+			
+				currentSearchCriteria = GetCurrentSearchCriteria(searchCriteria.Route, currentSearchCriteria.ToDate.AddDays(1), searchCriteria.ToDate);
+            }
+
+			return flights;
 		}
 
-		public async Task<List<Flight>> Search(SearchCriteria searchCriteria)
-		{
-
-			try
+        private SearchCriteria GetCurrentSearchCriteria(Route route, DateTime startDate, DateTime endDate)
+        {
+			return new SearchCriteria
 			{
-				var flights = new List<Flight>();
-
-                var searchCriteriaWithLimit = new SearchCriteria
-                {
-                    FromDate = searchCriteria.FromDate,
-					ToDate = DateUtils.Min(searchCriteria.FromDate.AddDays(MAX_FLEX_DAYS), searchCriteria.ToDate),
-                    Route = searchCriteria.Route
-                };
-
-                while (searchCriteriaWithLimit.FromDate <= searchCriteria.ToDate)
-                {
-					var airlineFlights = await DownloadFlightsAsync(searchCriteriaWithLimit);
-
-                    searchCriteriaWithLimit.FromDate = searchCriteriaWithLimit.ToDate.AddDays(1);
-					searchCriteriaWithLimit.ToDate = DateUtils.Min(searchCriteriaWithLimit.FromDate.AddDays(MAX_FLEX_DAYS), searchCriteria.ToDate);
-
-                    flights.AddRange(Flight.FromRyanairFlight(airlineFlights));
-                }
-
-				return flights;
-			}
-			catch (Exception ex)
-			{
-				logger.Error(ex.Message);
-				logger.Error(ex.StackTrace);
-			}
-
-			return await Task.Run(() => new List<Flight>());
-		}
+				FromDate = startDate,
+				ToDate = DateUtils.Min(startDate.AddDays(MAX_FLEX_DAYS), endDate),
+				Route = route
+			};
+        }
 
 		private async Task<RyanairFlights> DownloadFlightsAsync(SearchCriteria searchCriteria)
 		{
@@ -79,7 +47,7 @@ namespace FlightsApp
 
 			var httpResult = await apiHttpClient.SendAsync(url, HttpMethod.Get, null, null, null);
 
-			return JSONSerializer.FromJSON<RyanairFlights>(httpResult);
+			return Deserialize<RyanairFlights>(httpResult);
 		}
 	}
 }

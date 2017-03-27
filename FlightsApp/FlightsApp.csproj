@@ -72,8 +72,10 @@
     <Compile Include="Services\FlightsService.cs" />
     <Compile Include="SearchProviders\Ryanair\RyanairFlights.cs" />
     <Compile Include="SearchProviders\Ryanair\RyanairSearchProvider.cs" />
-    <Compile Include="RouteConfiguration.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Utils\DateUtils.cs" />
+    <Compile Include="SearchProviders\SearchProviderBase.cs" />
+    <Compile Include="Models\Airline.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SearchProviders\" />

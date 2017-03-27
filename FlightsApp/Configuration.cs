@@ -2,8 +2,39 @@
 
 namespace FlightsApp
 {
-    public static class RouteConfiguration
+    public static class Configuration
     {
+		public static Dictionary<Airline, List<Airport>> AirlineAirports = new Dictionary<Airline, List<Airport>>
+        {
+            {
+                Airline.Ryanair,
+                new List<Airport>
+                {
+                    Airport.Bucharest,
+                    Airport.Oradea,
+
+                    Airport.Dublin,
+                    Airport.LondonLuton,
+                    Airport.RomeCiampino,
+                    Airport.Bologna,
+                    Airport.MilanBergamo,
+                    Airport.VeniceTreviso
+                }
+            },
+            {
+                Airline.Wizzair,
+				new List<Airport>
+				{
+					Airport.Suceava,
+					Airport.LondonLuton,
+					Airport.RomeCiampino,
+					Airport.Bologna,
+					Airport.MilanBergamo,
+					Airport.VeniceTreviso
+				}
+            }
+        };
+        
         public static List<Route> Routes = new List<Route>
         {
             // wizzair: suceava - for stopover
