@@ -22,7 +22,7 @@ namespace FlightsApp
             };
         }
 
-        public void Search(List<string> airlines, DateTime startDate, DateTime endDate)
+        public List<Flight> Search(List<string> airlines, DateTime startDate, DateTime endDate)
         {
             logger.Info($"Search flights from date range {startDate.ToString("dd/MMM/yyyy")} - {endDate.ToString("dd/MMM/yyyy")}");
             logger.Info(string.Empty);
@@ -52,6 +52,8 @@ namespace FlightsApp
             });
 
             logger.Info("____________________________________");
+
+            return flights;
         }
 
         private List<ISearchProvider> GetSearchProvider(List<ISearchProvider> providers, Route route)

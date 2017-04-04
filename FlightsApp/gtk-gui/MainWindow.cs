@@ -3,150 +3,151 @@
 
 public partial class MainWindow
 {
-    private global::Gtk.Fixed fixed1;
+	private global::Gtk.Fixed fixed1;
 
-    private global::Gtk.Calendar calendarStartDate;
+	private global::Gtk.Calendar calendarStartDate;
 
-    private global::Gtk.Calendar calendarEndDate;
+	private global::Gtk.Calendar calendarEndDate;
 
-    private global::Gtk.Button btnSearch;
+	private global::Gtk.Button btnSearch;
 
-    private global::Gtk.Alignment alignment1;
+	private global::Gtk.Alignment alignment1;
 
-    private global::Gtk.ScrolledWindow GtkScrolledWindow;
+	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 
-    private global::Gtk.TextView txtInfo;
+	private global::Gtk.TextView txtInfo;
 
-    private global::Gtk.CheckButton chkWizz;
+	private global::Gtk.CheckButton chkWizz;
 
-    private global::Gtk.CheckButton chkRyanair;
+	private global::Gtk.CheckButton chkRyanair;
 
-    private global::Gtk.CheckButton chkBlueair;
+	private global::Gtk.CheckButton chkBlueair;
 
-    private global::Gtk.CheckButton chkTarom;
+	private global::Gtk.CheckButton chkTarom;
 
-    protected virtual void Build()
-    {
-        global::Stetic.Gui.Initialize(this);
-        // Widget MainWindow
-        this.Name = "MainWindow";
-        this.Title = global::Mono.Unix.Catalog.GetString("Flights");
-        this.Icon = global::Stetic.IconLoader.LoadIcon(this, "gtk-zoom-fit", global::Gtk.IconSize.Menu);
-        this.WindowPosition = ((global::Gtk.WindowPosition)(3));
-        // Container child MainWindow.Gtk.Container+ContainerChild
-        this.fixed1 = new global::Gtk.Fixed();
-        this.fixed1.Name = "fixed1";
-        this.fixed1.HasWindow = false;
-        // Container child fixed1.Gtk.Fixed+FixedChild
-        this.calendarStartDate = new global::Gtk.Calendar();
-        this.calendarStartDate.CanFocus = true;
-        this.calendarStartDate.Name = "calendarStartDate";
-        this.calendarStartDate.DisplayOptions = ((global::Gtk.CalendarDisplayOptions)(35));
-        this.fixed1.Add(this.calendarStartDate);
-        global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.calendarStartDate]));
-        w1.X = 15;
-        w1.Y = 10;
-        // Container child fixed1.Gtk.Fixed+FixedChild
-        this.calendarEndDate = new global::Gtk.Calendar();
-        this.calendarEndDate.CanFocus = true;
-        this.calendarEndDate.Name = "calendarEndDate";
-        this.calendarEndDate.DisplayOptions = ((global::Gtk.CalendarDisplayOptions)(35));
-        this.fixed1.Add(this.calendarEndDate);
-        global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.calendarEndDate]));
-        w2.X = 250;
-        w2.Y = 10;
-        // Container child fixed1.Gtk.Fixed+FixedChild
-        this.btnSearch = new global::Gtk.Button();
-        this.btnSearch.CanFocus = true;
-        this.btnSearch.Name = "btnSearch";
-        this.btnSearch.UseUnderline = true;
-        this.btnSearch.Label = global::Mono.Unix.Catalog.GetString("Search");
-        this.fixed1.Add(this.btnSearch);
-        global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.btnSearch]));
-        w3.X = 515;
-        w3.Y = 23;
-        // Container child fixed1.Gtk.Fixed+FixedChild
-        this.alignment1 = new global::Gtk.Alignment(0.5F, 0.5F, 1F, 1F);
-        this.alignment1.Name = "alignment1";
-        this.fixed1.Add(this.alignment1);
-        global::Gtk.Fixed.FixedChild w4 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.alignment1]));
-        w4.X = 370;
-        w4.Y = 268;
-        // Container child fixed1.Gtk.Fixed+FixedChild
-        this.GtkScrolledWindow = new global::Gtk.ScrolledWindow();
-        this.GtkScrolledWindow.WidthRequest = 1200;
-        this.GtkScrolledWindow.HeightRequest = 500;
-        this.GtkScrolledWindow.Name = "GtkScrolledWindow";
-        this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
-        // Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-        this.txtInfo = new global::Gtk.TextView();
-        this.txtInfo.CanFocus = true;
-        this.txtInfo.Name = "txtInfo";
-        this.GtkScrolledWindow.Add(this.txtInfo);
-        this.fixed1.Add(this.GtkScrolledWindow);
-        global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.GtkScrolledWindow]));
-        w6.X = 15;
-        w6.Y = 200;
-        // Container child fixed1.Gtk.Fixed+FixedChild
-        this.chkWizz = new global::Gtk.CheckButton();
-        this.chkWizz.CanFocus = true;
-        this.chkWizz.Name = "chkWizz";
-        this.chkWizz.Label = global::Mono.Unix.Catalog.GetString("Wizzair");
-        this.chkWizz.DrawIndicator = true;
-        this.chkWizz.UseUnderline = true;
-        this.fixed1.Add(this.chkWizz);
-        global::Gtk.Fixed.FixedChild w7 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkWizz]));
-        w7.X = 676;
-        w7.Y = 30;
-        // Container child fixed1.Gtk.Fixed+FixedChild
-        this.chkRyanair = new global::Gtk.CheckButton();
-        this.chkRyanair.CanFocus = true;
-        this.chkRyanair.Name = "chkRyanair";
-        this.chkRyanair.Label = global::Mono.Unix.Catalog.GetString("Ryanair");
-        this.chkRyanair.Active = true;
-        this.chkRyanair.DrawIndicator = true;
-        this.chkRyanair.UseUnderline = true;
-        this.fixed1.Add(this.chkRyanair);
-        global::Gtk.Fixed.FixedChild w8 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkRyanair]));
-        w8.X = 676;
-        w8.Y = 69;
-        // Container child fixed1.Gtk.Fixed+FixedChild
-        this.chkBlueair = new global::Gtk.CheckButton();
-        this.chkBlueair.CanFocus = true;
-        this.chkBlueair.Name = "chkBlueair";
-        this.chkBlueair.Label = global::Mono.Unix.Catalog.GetString("Blueair");
-        this.chkBlueair.DrawIndicator = true;
-        this.chkBlueair.UseUnderline = true;
-        this.fixed1.Add(this.chkBlueair);
-        global::Gtk.Fixed.FixedChild w9 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkBlueair]));
-        w9.X = 676;
-        w9.Y = 110;
-        // Container child fixed1.Gtk.Fixed+FixedChild
-        this.chkTarom = new global::Gtk.CheckButton();
-        this.chkTarom.CanFocus = true;
-        this.chkTarom.Name = "chkTarom";
-        this.chkTarom.Label = global::Mono.Unix.Catalog.GetString("Tarom");
-        this.chkTarom.DrawIndicator = true;
-        this.chkTarom.UseUnderline = true;
-        this.fixed1.Add(this.chkTarom);
-        global::Gtk.Fixed.FixedChild w10 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkTarom]));
-        w10.X = 676;
-        w10.Y = 146;
-        this.Add(this.fixed1);
-        if ((this.Child != null))
-        {
-            this.Child.ShowAll();
-        }
-        this.DefaultWidth = 1264;
-        this.DefaultHeight = 733;
-        this.Show();
-        this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
-        this.calendarStartDate.PrevMonth += new global::System.EventHandler(this.OnCalendar2PrevMonth);
-        this.calendarStartDate.DaySelected += new global::System.EventHandler(this.OnCalendar2DaySelected);
-        this.calendarStartDate.NextMonth += new global::System.EventHandler(this.OnCalendar2NextMonth);
-        this.calendarStartDate.MonthChanged += new global::System.EventHandler(this.OnCalendar2MonthChanged);
-        this.calendarStartDate.PrevYear += new global::System.EventHandler(this.OnCalendar2PrevYear);
-        this.calendarStartDate.NextYear += new global::System.EventHandler(this.OnCalendar2NextYear);
-        this.btnSearch.Clicked += new global::System.EventHandler(this.OnButton1Clicked);
-    }
+	protected virtual void Build()
+	{
+		global::Stetic.Gui.Initialize(this);
+		// Widget MainWindow
+		this.Name = "MainWindow";
+		this.Title = global::Mono.Unix.Catalog.GetString("Flights");
+		this.Icon = global::Stetic.IconLoader.LoadIcon(this, "gtk-zoom-fit", global::Gtk.IconSize.Menu);
+		this.WindowPosition = ((global::Gtk.WindowPosition)(3));
+		// Container child MainWindow.Gtk.Container+ContainerChild
+		this.fixed1 = new global::Gtk.Fixed();
+		this.fixed1.Name = "fixed1";
+		this.fixed1.HasWindow = false;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.calendarStartDate = new global::Gtk.Calendar();
+		this.calendarStartDate.CanFocus = true;
+		this.calendarStartDate.Name = "calendarStartDate";
+		this.calendarStartDate.DisplayOptions = ((global::Gtk.CalendarDisplayOptions)(35));
+		this.fixed1.Add(this.calendarStartDate);
+		global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.calendarStartDate]));
+		w1.X = 15;
+		w1.Y = 10;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.calendarEndDate = new global::Gtk.Calendar();
+		this.calendarEndDate.CanFocus = true;
+		this.calendarEndDate.Name = "calendarEndDate";
+		this.calendarEndDate.DisplayOptions = ((global::Gtk.CalendarDisplayOptions)(35));
+		this.fixed1.Add(this.calendarEndDate);
+		global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.calendarEndDate]));
+		w2.X = 250;
+		w2.Y = 10;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.btnSearch = new global::Gtk.Button();
+		this.btnSearch.CanFocus = true;
+		this.btnSearch.Name = "btnSearch";
+		this.btnSearch.UseUnderline = true;
+		this.btnSearch.Label = global::Mono.Unix.Catalog.GetString("Search");
+		this.fixed1.Add(this.btnSearch);
+		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.btnSearch]));
+		w3.X = 515;
+		w3.Y = 23;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.alignment1 = new global::Gtk.Alignment(0.5F, 0.5F, 1F, 1F);
+		this.alignment1.Name = "alignment1";
+		this.fixed1.Add(this.alignment1);
+		global::Gtk.Fixed.FixedChild w4 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.alignment1]));
+		w4.X = 370;
+		w4.Y = 268;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow();
+		this.GtkScrolledWindow.WidthRequest = 1200;
+		this.GtkScrolledWindow.HeightRequest = 500;
+		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
+		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
+		this.txtInfo = new global::Gtk.TextView();
+		this.txtInfo.CanFocus = true;
+		this.txtInfo.Name = "txtInfo";
+		this.GtkScrolledWindow.Add(this.txtInfo);
+		this.fixed1.Add(this.GtkScrolledWindow);
+		global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.GtkScrolledWindow]));
+		w6.X = 15;
+		w6.Y = 200;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.chkWizz = new global::Gtk.CheckButton();
+		this.chkWizz.CanFocus = true;
+		this.chkWizz.Name = "chkWizz";
+		this.chkWizz.Label = global::Mono.Unix.Catalog.GetString("Wizzair");
+		this.chkWizz.Active = true;
+		this.chkWizz.DrawIndicator = true;
+		this.chkWizz.UseUnderline = true;
+		this.fixed1.Add(this.chkWizz);
+		global::Gtk.Fixed.FixedChild w7 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkWizz]));
+		w7.X = 676;
+		w7.Y = 30;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.chkRyanair = new global::Gtk.CheckButton();
+		this.chkRyanair.CanFocus = true;
+		this.chkRyanair.Name = "chkRyanair";
+		this.chkRyanair.Label = global::Mono.Unix.Catalog.GetString("Ryanair");
+		this.chkRyanair.Active = true;
+		this.chkRyanair.DrawIndicator = true;
+		this.chkRyanair.UseUnderline = true;
+		this.fixed1.Add(this.chkRyanair);
+		global::Gtk.Fixed.FixedChild w8 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkRyanair]));
+		w8.X = 676;
+		w8.Y = 69;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.chkBlueair = new global::Gtk.CheckButton();
+		this.chkBlueair.CanFocus = true;
+		this.chkBlueair.Name = "chkBlueair";
+		this.chkBlueair.Label = global::Mono.Unix.Catalog.GetString("Blueair");
+		this.chkBlueair.DrawIndicator = true;
+		this.chkBlueair.UseUnderline = true;
+		this.fixed1.Add(this.chkBlueair);
+		global::Gtk.Fixed.FixedChild w9 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkBlueair]));
+		w9.X = 676;
+		w9.Y = 110;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.chkTarom = new global::Gtk.CheckButton();
+		this.chkTarom.CanFocus = true;
+		this.chkTarom.Name = "chkTarom";
+		this.chkTarom.Label = global::Mono.Unix.Catalog.GetString("Tarom");
+		this.chkTarom.DrawIndicator = true;
+		this.chkTarom.UseUnderline = true;
+		this.fixed1.Add(this.chkTarom);
+		global::Gtk.Fixed.FixedChild w10 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkTarom]));
+		w10.X = 676;
+		w10.Y = 146;
+		this.Add(this.fixed1);
+		if ((this.Child != null))
+		{
+			this.Child.ShowAll();
+		}
+		this.DefaultWidth = 1264;
+		this.DefaultHeight = 733;
+		this.Show();
+		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
+		this.calendarStartDate.PrevMonth += new global::System.EventHandler(this.OnCalendar2PrevMonth);
+		this.calendarStartDate.DaySelected += new global::System.EventHandler(this.OnCalendar2DaySelected);
+		this.calendarStartDate.NextMonth += new global::System.EventHandler(this.OnCalendar2NextMonth);
+		this.calendarStartDate.MonthChanged += new global::System.EventHandler(this.OnCalendar2MonthChanged);
+		this.calendarStartDate.PrevYear += new global::System.EventHandler(this.OnCalendar2PrevYear);
+		this.calendarStartDate.NextYear += new global::System.EventHandler(this.OnCalendar2NextYear);
+		this.btnSearch.Clicked += new global::System.EventHandler(this.OnButton1Clicked);
+	}
 }

@@ -76,6 +76,7 @@
     <Compile Include="Utils\DateUtils.cs" />
     <Compile Include="SearchProviders\SearchProviderBase.cs" />
     <Compile Include="Models\Airline.cs" />
+    <Compile Include="Services\TripService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SearchProviders\" />

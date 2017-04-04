@@ -12,6 +12,7 @@ namespace FlightsApp
         public string CurrencyCode { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
+		public Airline Airline { get; set; }
 
         public static List<Flight> FromWizzairFlight(WizzairFlights.Flight flight)
         {
@@ -28,7 +29,8 @@ namespace FlightsApp
                             DateFrom = date,
                             DateTo = DateTime.MinValue,
                             Price = flight.price.amount,
-                            CurrencyCode = flight.price.currencyCode
+                            CurrencyCode = flight.price.currencyCode,
+                            Airline = Airline.Wizzair
                          }).ToList();
         }
 
@@ -46,7 +48,8 @@ namespace FlightsApp
                                   DateFrom = flight.time[0],
                                   DateTo = flight.time[0],
 								  Price = flight.regularFare.fares.Min(f => f.amount),
-                                  CurrencyCode = flights.currency
+                                  CurrencyCode = flights.currency,
+         						  Airline = Airline.Ryanair
                               }))
                            ).ToList();
         }

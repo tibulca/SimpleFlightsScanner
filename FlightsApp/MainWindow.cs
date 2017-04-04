@@ -7,6 +7,7 @@ public partial class MainWindow : Gtk.Window
 {
     private const int DEFAULT_DATE_DIFF = 7;
     private readonly FlightsService flightsService;
+    private readonly TripService tripService;
 
     public MainWindow() : base(Gtk.WindowType.Toplevel)
     {
@@ -15,7 +16,10 @@ public partial class MainWindow : Gtk.Window
         calendarStartDate.Date = DateTime.Now.AddDays(1);
         SetDefaultEndDate();
 
-        flightsService = new FlightsService(new UILogger(txtInfo));
+        var logger = new UILogger(txtInfo);
+
+		flightsService = new FlightsService(logger);
+		tripService = new TripService(logger);
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
@@ -45,7 +49,8 @@ public partial class MainWindow : Gtk.Window
             airlines.Add(chkTarom.Label);
         }
 
-        flightsService.Search(airlines, calendarStartDate.Date, calendarEndDate.Date);
+        var flights = flightsService.Search(airlines, calendarStartDate.Date, calendarEndDate.Date);
+        tripService.FindFightMatches(Airport.Dublin, Airport.MilanBergamo, flights);
     }
 
     protected void OnCalendar2PrevMonth(object sender, EventArgs e)
