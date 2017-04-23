@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -6,6 +7,11 @@ namespace FlightsApp
 {
     public class ApiHttpClientMock : IApiHttpClient
     {
+        public Task<string> GetAsync(string url)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<string> SendAsync(string url, HttpMethod httpMethod, string requestBody, string contentType, Dictionary<string, string> headers)
         {
             // wizz

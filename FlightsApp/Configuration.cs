@@ -32,6 +32,15 @@ namespace FlightsApp
 					Airport.MilanBergamo,
 					Airport.VeniceTreviso
 				}
+            },
+            {
+                Airline.Tarom,
+                new List<Airport>
+                {
+                    Airport.Suceava,
+                    Airport.Bucharest,
+                    Airport.ClujNapoca
+                }
             }
         };
         
@@ -54,7 +63,10 @@ namespace FlightsApp
             new Route(Airport.Dublin, Airport.RomeCiampino),
             new Route(Airport.Dublin, Airport.Bologna),
             new Route(Airport.Dublin, Airport.MilanBergamo),
-            new Route(Airport.Dublin, Airport.VeniceTreviso)
+            new Route(Airport.Dublin, Airport.VeniceTreviso),
+
+            // tarom: suceava - for stopover
+            new Route(Airport.Suceava, Airport.Bucharest),
         };
     }
 }

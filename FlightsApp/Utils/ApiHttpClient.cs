@@ -8,6 +8,11 @@ namespace FlightsApp
 {
     public class ApiHttpClient : IApiHttpClient
     {
+        public async Task<string> GetAsync(string url)
+        {
+            return await this.SendAsync(url, HttpMethod.Get, null, null, null);
+        }
+
         public async Task<string> SendAsync(string url, HttpMethod httpMethod, string requestBody, string contentType, Dictionary<string, string> headers)
         {
             using (var client = new HttpClient())

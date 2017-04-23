@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Gtk;
 using FlightsApp;
 using System.Collections.Generic;
@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public partial class MainWindow : Gtk.Window
 {
     private const int DEFAULT_DATE_DIFF = 7;
+
+    private readonly ILogger logger;
     private readonly FlightsService flightsService;
     private readonly TripService tripService;
 
@@ -16,8 +18,7 @@ public partial class MainWindow : Gtk.Window
         calendarStartDate.Date = DateTime.Now.AddDays(1);
         SetDefaultEndDate();
 
-        var logger = new UILogger(txtInfo);
-
+        logger = new UILogger(txtInfo);
 		flightsService = new FlightsService(logger);
 		tripService = new TripService(logger);
     }
@@ -30,27 +31,36 @@ public partial class MainWindow : Gtk.Window
 
     protected void OnButton1Clicked(object sender, EventArgs e)
     {
-        var airlines = new List<string>();
-        // todo: this class should have a list of airlines, dinamically add the checkboxes and get the active list
-        if (chkWizz.Active)
+        try
         {
-            airlines.Add(chkWizz.Label);
-        }
-        if (chkRyanair.Active)
-        {
-            airlines.Add(chkRyanair.Label);
-        }
-        if (chkBlueair.Active)
-        {
-            airlines.Add(chkBlueair.Label);
-        }
-        if (chkTarom.Active)
-        {
-            airlines.Add(chkTarom.Label);
-        }
+            var airlines = new List<string>();
+            // todo: this class should have a list of airlines, dinamically add the checkboxes and get the active list
+            if (chkWizz.Active)
+            {
+                airlines.Add(chkWizz.Label);
+            }
+            if (chkRyanair.Active)
+            {
+                airlines.Add(chkRyanair.Label);
+            }
+            if (chkBlueair.Active)
+            {
+                airlines.Add(chkBlueair.Label);
+            }
+            if (chkTarom.Active)
+            {
+                airlines.Add(chkTarom.Label);
+            }
+            //airlines.Add(chkTarom.Label);
 
-        var flights = flightsService.Search(airlines, calendarStartDate.Date, calendarEndDate.Date);
-        tripService.FindFightMatches(Airport.Dublin, Airport.MilanBergamo, flights);
+            var flights = flightsService.Search(airlines, calendarStartDate.Date, calendarEndDate.Date);
+            tripService.FindFightMatches(Airport.Dublin, Airport.MilanBergamo, flights);
+
+        }
+        catch (Exception ex)
+        {
+            logger.Error(ex);
+        }
     }
 
     protected void OnCalendar2PrevMonth(object sender, EventArgs e)

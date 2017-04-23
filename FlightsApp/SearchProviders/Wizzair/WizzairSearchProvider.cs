@@ -1,4 +1,4 @@
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace FlightsApp
 
         private async Task<WizzairFlights> DownloadFlightsAsync(SearchCriteria searchCriteria)
         {
-            var url = "https://be.wizzair.com/4.2.1/Api/search/timetable";
+            var url = "https://be.wizzair.com/4.3.1/Api/search/timetable";
             var contentType = "application/json";
             var requestBody = GetRequestBody(searchCriteria);
             var headers = GetRequestHeaders();

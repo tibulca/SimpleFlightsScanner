@@ -19,6 +19,7 @@ namespace FlightsApp
             {
                 new WizzairSearchProvider(logger, apiHttpClient),
                 new RyanairSearchProvider(logger, apiHttpClient),
+				new TaromSearchProvider(logger, apiHttpClient)
             };
         }
 
