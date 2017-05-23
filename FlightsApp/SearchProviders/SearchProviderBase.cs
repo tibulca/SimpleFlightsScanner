@@ -15,7 +15,7 @@ namespace FlightsApp
         { 
             get 
             { 
-                return Configuration.AirlineAirports[Airline]; 
+                return Configuration.Configuration.AirlineAirports[Airline]; 
             } 
         } 
 

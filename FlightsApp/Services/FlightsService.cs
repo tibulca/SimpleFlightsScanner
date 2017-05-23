@@ -32,10 +32,10 @@ namespace FlightsApp
 
             var flights = new List<Flight>();
 
-            Configuration.Routes
-                         .Where(route => route.ContainsAny(from, to))
-                         .ToList()
-                         .ForEach(route =>
+            //Configuration.Configuration.Routes
+            //             .Where(route => route.ContainsAny(from, to))
+            //             .ToList()
+            GetMatchingRoutes(from, to).ForEach(route =>
             {
                 logger.Info($"ROUTE: {route.Airport1} - {route.Airport2}");
 
@@ -56,6 +56,29 @@ namespace FlightsApp
             });
 
             return flights;
+        }
+
+        private List<Route> GetMatchingRoutes(Airport from, Airport to)
+        {
+            var allRoutes = Configuration.Configuration.Routes;
+            var directRoutes = allRoutes.Where(r => r.ContainsAll(from, to));
+
+            var startRoutes = allRoutes.Where(r => r.ContainsAll(from) && !r.ContainsAll(from, to)).ToList();
+            var endRoutes = allRoutes.Where(r => r.ContainsAll(to) && !r.ContainsAll(from, to)).ToList();
+            var routesWithStopover = new List<Route>();
+            startRoutes.ForEach(startRoute =>
+            {
+                var matchingEndRoute = endRoutes.FirstOrDefault(endRoute => startRoute.Airport1 == endRoute.Airport1 || 
+                                                                            startRoute.Airport2 == endRoute.Airport2 || 
+                                                                            startRoute.Airport1 == endRoute.Airport2);
+                if (matchingEndRoute != null)
+                {
+                    routesWithStopover.Add(startRoute);
+                    routesWithStopover.Add(matchingEndRoute);
+                }
+            });
+
+            return directRoutes.Union(routesWithStopover).ToList();
         }
 
         private List<ISearchProvider> GetSearchProvider(List<ISearchProvider> providers, Route route)

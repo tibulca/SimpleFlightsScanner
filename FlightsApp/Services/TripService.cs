@@ -25,21 +25,6 @@ namespace FlightsApp
             var flightsWithStopover = GetFlightsWithStopover(fromAirport, toAirport, flights);
             trips.AddRange(flightsWithStopover);
 
-            //var fromFlights = flights.Where(f => f.From == fromAirport && f.To != toAirport);
-            //var toFlights = flights.Where(f => f.From != fromAirport && f.To == toAirport);
-            //foreach (var fromFlight in fromFlights)
-            //{
-            //    var matchingToFlights1 = toFlights.Where(t => t.From == fromFlight.To).ToList();
-            //    var matchingToFlights2 = toFlights.Where(t => t.From == fromFlight.To && t.DateFrom.Date == fromFlight.DateTo.Date).ToList();
-            //    var matchingToFlights = toFlights.Where(t => t.From == fromFlight.To &&
-            //                                            t.DateFrom.Date == fromFlight.DateTo.Date &&
-            //                                            t.DateFrom > fromFlight.DateTo.AddMinutes(MinimumStopoverInMinutes));
-            //    if (matchingToFlights.Any())
-            //    {
-            //        trips.AddRange(matchingToFlights.Select(t => new List<Flight> { fromFlight, t }));
-            //    }
-            //}
-
             if (!trips.Any())
             {
                 logger.Info($"\tNO SEARCH RESULTS!");

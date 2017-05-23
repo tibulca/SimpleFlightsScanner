@@ -30,8 +30,8 @@ public partial class MainWindow : Gtk.Window
     {
         var airports = Airport.All.OrderBy(a => a.Name).ToList();
         airports.ForEach(a =>{
-            cbFrom.AppendText($"{a.Code} - {a.Name}"); 
-            cbTo.AppendText($"{a.Code} - {a.Name}");
+            cbFrom.AppendText($"{a.Name} - {a.Code}"); 
+            cbTo.AppendText($"{a.Name} - {a.Code}");
         });
 
         cbFrom.Active = airports.IndexOf(Airport.Dublin);
@@ -67,8 +67,8 @@ public partial class MainWindow : Gtk.Window
                 airlines.Add(Airline.Tarom);
             }
 
-            var from = Airport.All.First(a => cbFrom.ActiveText.IndexOf(a.Code) == 0);
-            var to = Airport.All.First(a => cbTo.ActiveText.IndexOf(a.Code) == 0);
+            var from = Airport.All.First(a => cbFrom.ActiveText.IndexOf(a.Code) == (cbFrom.ActiveText.Length - 3));
+            var to = Airport.All.First(a => cbTo.ActiveText.IndexOf(a.Code) == (cbTo.ActiveText.Length - 3));
 
             var flights = flightsService.Search(from, to, airlines, calendarStartDate.Date, calendarEndDate.Date);
             logger.Info("____________________________________");

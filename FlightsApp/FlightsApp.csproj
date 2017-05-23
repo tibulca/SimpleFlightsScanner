@@ -72,13 +72,22 @@
     <Compile Include="Services\FlightsService.cs" />
     <Compile Include="SearchProviders\Ryanair\RyanairFlights.cs" />
     <Compile Include="SearchProviders\Ryanair\RyanairSearchProvider.cs" />
-    <Compile Include="Configuration.cs" />
     <Compile Include="Utils\DateUtils.cs" />
     <Compile Include="SearchProviders\SearchProviderBase.cs" />
     <Compile Include="Models\Airline.cs" />
     <Compile Include="Services\TripService.cs" />
     <Compile Include="SearchProviders\Tarom\TaromSearchProvider.cs" />
     <Compile Include="SearchProviders\Tarom\TaromFlights.cs" />
+    <Compile Include="Configuration\Airlines\Ryanair.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\Airlines\Wizzair.cs" />
+    <Compile Include="Configuration\Airlines\Blueair.cs" />
+    <Compile Include="Configuration\Airlines\Tarom.cs" />
+    <Compile Include="Configuration\Routes\Suceava.cs" />
+    <Compile Include="Configuration\Routes\Iasi.cs" />
+    <Compile Include="Configuration\Routes\ClujNapoca.cs" />
+    <Compile Include="Configuration\Routes\Bucuresti.cs" />
+    <Compile Include="Configuration\Routes\Dublin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SearchProviders\" />
@@ -88,6 +97,9 @@
     <Folder Include="Services\" />
     <Folder Include="SearchProviders\Ryanair\" />
     <Folder Include="SearchProviders\Tarom\" />
+    <Folder Include="Configuration\" />
+    <Folder Include="Configuration\Airlines\" />
+    <Folder Include="Configuration\Routes\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
