@@ -1,4 +1,6 @@
-﻿namespace FlightsApp
+﻿using System.Linq;
+
+namespace FlightsApp
 {
     public class Route
     {
@@ -9,6 +11,11 @@
         {
             Airport1 = airport1;
             Airport2 = airport2;
+        }
+
+        public bool ContainsAny(params Airport[] airports)
+        {
+            return airports.Any(a => a.Equals(Airport1) || a.Equals(Airport2));
         }
     }
 }

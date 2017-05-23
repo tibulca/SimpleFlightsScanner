@@ -42,5 +42,17 @@ namespace FlightsApp
         {
             return $"{Name} ({Code})";
         }
+
+        public override bool Equals(object obj)
+        {
+            var airport2 = obj as Airport;
+
+            return airport2 != null && string.Equals(airport2.Code, this.Code);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

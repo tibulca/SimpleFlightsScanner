@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Gtk;
 using FlightsApp;
 using System.Collections.Generic;
@@ -21,6 +22,20 @@ public partial class MainWindow : Gtk.Window
         logger = new UILogger(txtInfo);
 		flightsService = new FlightsService(logger);
 		tripService = new TripService(logger);
+
+        LoadAirports();
+    }
+
+    private void LoadAirports()
+    {
+        var airports = Airport.All.OrderBy(a => a.Name).ToList();
+        airports.ForEach(a =>{
+            cbFrom.AppendText($"{a.Code} - {a.Name}"); 
+            cbTo.AppendText($"{a.Code} - {a.Name}");
+        });
+
+        cbFrom.Active = airports.IndexOf(Airport.Dublin);
+        cbTo.Active = airports.IndexOf(Airport.Suceava);
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
@@ -51,11 +66,18 @@ public partial class MainWindow : Gtk.Window
             {
                 airlines.Add(chkTarom.Label);
             }
-            //airlines.Add(chkTarom.Label);
 
-            var flights = flightsService.Search(airlines, calendarStartDate.Date, calendarEndDate.Date);
-            tripService.FindFightMatches(Airport.Dublin, Airport.MilanBergamo, flights);
+            var from = Airport.All.First(a => cbFrom.ActiveText.IndexOf(a.Code) == 0);
+            var to = Airport.All.First(a => cbTo.ActiveText.IndexOf(a.Code) == 0);
 
+            var flights = flightsService.Search(from, to, airlines, calendarStartDate.Date, calendarEndDate.Date);
+            logger.Info("____________________________________");
+
+            tripService.FindFightMatches(from, to, flights);
+            logger.Info("____________________________________");
+
+            tripService.FindFightMatches(to, from, flights);
+            logger.Info("____________________________________");
         }
         catch (Exception ex)
         {

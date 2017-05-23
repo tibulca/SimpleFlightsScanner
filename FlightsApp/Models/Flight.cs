@@ -27,7 +27,7 @@ namespace FlightsApp
                             From = Airport.FromCode(flight.departureStation),
                             To = Airport.FromCode(flight.arrivalStation),
                             DateFrom = date,
-                            DateTo = DateTime.MinValue,
+                            DateTo = date.AddHours(2), // todo: get the correct hour using normal search? 
                             Price = flight.price.amount,
                             CurrencyCode = flight.price.currencyCode,
                             Airline = Airline.Wizzair

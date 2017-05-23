@@ -25,6 +25,10 @@ public partial class MainWindow
 
 	private global::Gtk.CheckButton chkTarom;
 
+	private global::Gtk.ComboBox cbFrom;
+
+	private global::Gtk.ComboBox cbTo;
+
 	protected virtual void Build()
 	{
 		global::Stetic.Gui.Initialize(this);
@@ -57,14 +61,15 @@ public partial class MainWindow
 		w2.Y = 10;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.btnSearch = new global::Gtk.Button();
+		this.btnSearch.WidthRequest = 100;
 		this.btnSearch.CanFocus = true;
 		this.btnSearch.Name = "btnSearch";
 		this.btnSearch.UseUnderline = true;
 		this.btnSearch.Label = global::Mono.Unix.Catalog.GetString("Search");
 		this.fixed1.Add(this.btnSearch);
 		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.btnSearch]));
-		w3.X = 515;
-		w3.Y = 23;
+		w3.X = 800;
+		w3.Y = 10;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.alignment1 = new global::Gtk.Alignment(0.5F, 0.5F, 1F, 1F);
 		this.alignment1.Name = "alignment1";
@@ -97,8 +102,8 @@ public partial class MainWindow
 		this.chkWizz.UseUnderline = true;
 		this.fixed1.Add(this.chkWizz);
 		global::Gtk.Fixed.FixedChild w7 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkWizz]));
-		w7.X = 676;
-		w7.Y = 30;
+		w7.X = 670;
+		w7.Y = 10;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.chkRyanair = new global::Gtk.CheckButton();
 		this.chkRyanair.CanFocus = true;
@@ -109,8 +114,8 @@ public partial class MainWindow
 		this.chkRyanair.UseUnderline = true;
 		this.fixed1.Add(this.chkRyanair);
 		global::Gtk.Fixed.FixedChild w8 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkRyanair]));
-		w8.X = 676;
-		w8.Y = 69;
+		w8.X = 670;
+		w8.Y = 40;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.chkBlueair = new global::Gtk.CheckButton();
 		this.chkBlueair.CanFocus = true;
@@ -120,19 +125,36 @@ public partial class MainWindow
 		this.chkBlueair.UseUnderline = true;
 		this.fixed1.Add(this.chkBlueair);
 		global::Gtk.Fixed.FixedChild w9 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkBlueair]));
-		w9.X = 676;
-		w9.Y = 110;
+		w9.X = 670;
+		w9.Y = 70;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.chkTarom = new global::Gtk.CheckButton();
 		this.chkTarom.CanFocus = true;
 		this.chkTarom.Name = "chkTarom";
 		this.chkTarom.Label = global::Mono.Unix.Catalog.GetString("Tarom");
+		this.chkTarom.Active = true;
 		this.chkTarom.DrawIndicator = true;
 		this.chkTarom.UseUnderline = true;
 		this.fixed1.Add(this.chkTarom);
 		global::Gtk.Fixed.FixedChild w10 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkTarom]));
-		w10.X = 676;
-		w10.Y = 146;
+		w10.X = 670;
+		w10.Y = 100;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.cbFrom = global::Gtk.ComboBox.NewText();
+		this.cbFrom.WidthRequest = 150;
+		this.cbFrom.Name = "cbFrom";
+		this.fixed1.Add(this.cbFrom);
+		global::Gtk.Fixed.FixedChild w11 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.cbFrom]));
+		w11.X = 500;
+		w11.Y = 10;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.cbTo = global::Gtk.ComboBox.NewText();
+		this.cbTo.WidthRequest = 150;
+		this.cbTo.Name = "cbTo";
+		this.fixed1.Add(this.cbTo);
+		global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.cbTo]));
+		w12.X = 500;
+		w12.Y = 40;
 		this.Add(this.fixed1);
 		if ((this.Child != null))
 		{

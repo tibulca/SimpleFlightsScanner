@@ -23,7 +23,7 @@ namespace FlightsApp
             };
         }
 
-        public List<Flight> Search(List<string> airlines, DateTime startDate, DateTime endDate)
+        public List<Flight> Search(Airport from, Airport to, List<string> airlines, DateTime startDate, DateTime endDate)
         {
             logger.Info($"Search flights from date range {startDate.ToString("dd/MMM/yyyy")} - {endDate.ToString("dd/MMM/yyyy")}");
             logger.Info(string.Empty);
@@ -32,7 +32,10 @@ namespace FlightsApp
 
             var flights = new List<Flight>();
 
-            Configuration.Routes.ForEach(route =>
+            Configuration.Routes
+                         .Where(route => route.ContainsAny(from, to))
+                         .ToList()
+                         .ForEach(route =>
             {
                 logger.Info($"ROUTE: {route.Airport1} - {route.Airport2}");
 
@@ -51,8 +54,6 @@ namespace FlightsApp
                     logger.Info(string.Empty);
                 });
             });
-
-            logger.Info("____________________________________");
 
             return flights;
         }

@@ -78,6 +78,7 @@
     <Compile Include="Models\Airline.cs" />
     <Compile Include="Services\TripService.cs" />
     <Compile Include="SearchProviders\Tarom\TaromSearchProvider.cs" />
+    <Compile Include="SearchProviders\Tarom\TaromFlights.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SearchProviders\" />

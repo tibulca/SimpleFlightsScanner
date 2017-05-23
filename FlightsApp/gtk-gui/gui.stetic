@@ -48,6 +48,7 @@
         <child>
           <widget class="Gtk.Button" id="btnSearch">
             <property name="MemberName" />
+            <property name="WidthRequest">100</property>
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Search</property>
@@ -55,8 +56,8 @@
             <signal name="Clicked" handler="OnButton1Clicked" />
           </widget>
           <packing>
-            <property name="X">515</property>
-            <property name="Y">23</property>
+            <property name="X">800</property>
+            <property name="Y">10</property>
           </packing>
         </child>
         <child>
@@ -144,8 +145,8 @@
             <property name="UseUnderline">True</property>
           </widget>
           <packing>
-            <property name="X">676</property>
-            <property name="Y">30</property>
+            <property name="X">670</property>
+            <property name="Y">10</property>
           </packing>
         </child>
         <child>
@@ -159,8 +160,8 @@
             <property name="UseUnderline">True</property>
           </widget>
           <packing>
-            <property name="X">676</property>
-            <property name="Y">69</property>
+            <property name="X">670</property>
+            <property name="Y">40</property>
           </packing>
         </child>
         <child>
@@ -173,8 +174,8 @@
             <property name="UseUnderline">True</property>
           </widget>
           <packing>
-            <property name="X">676</property>
-            <property name="Y">110</property>
+            <property name="X">670</property>
+            <property name="Y">70</property>
           </packing>
         </child>
         <child>
@@ -182,13 +183,38 @@
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Label" translatable="yes">Tarom</property>
+            <property name="Active">True</property>
             <property name="DrawIndicator">True</property>
             <property name="HasLabel">True</property>
             <property name="UseUnderline">True</property>
           </widget>
           <packing>
-            <property name="X">676</property>
-            <property name="Y">146</property>
+            <property name="X">670</property>
+            <property name="Y">100</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.ComboBox" id="cbFrom">
+            <property name="MemberName" />
+            <property name="WidthRequest">150</property>
+            <property name="IsTextCombo">True</property>
+            <property name="Items" translatable="yes" />
+          </widget>
+          <packing>
+            <property name="X">500</property>
+            <property name="Y">10</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.ComboBox" id="cbTo">
+            <property name="MemberName" />
+            <property name="WidthRequest">150</property>
+            <property name="IsTextCombo">True</property>
+            <property name="Items" translatable="yes" />
+          </widget>
+          <packing>
+            <property name="X">500</property>
+            <property name="Y">40</property>
           </packing>
         </child>
       </widget>
