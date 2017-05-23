@@ -46,7 +46,7 @@ namespace FlightsApp
                                   From = Airport.FromCode(trip.origin),
                                   To = Airport.FromCode(trip.destination),
                                   DateFrom = flight.time[0],
-                                  DateTo = flight.time[0],
+                                  DateTo = flight.time[1],
 								  Price = flight.regularFare.fares.Min(f => f.amount),
                                   CurrencyCode = flights.currency,
          						  Airline = Airline.Ryanair

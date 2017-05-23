@@ -48,23 +48,23 @@ public partial class MainWindow : Gtk.Window
     {
         try
         {
-            var airlines = new List<string>();
+            var airlines = new List<Airline>();
             // todo: this class should have a list of airlines, dinamically add the checkboxes and get the active list
             if (chkWizz.Active)
             {
-                airlines.Add(chkWizz.Label);
+                airlines.Add(Airline.Wizzair);
             }
             if (chkRyanair.Active)
             {
-                airlines.Add(chkRyanair.Label);
+                airlines.Add(Airline.Ryanair);
             }
             if (chkBlueair.Active)
             {
-                airlines.Add(chkBlueair.Label);
+                airlines.Add(Airline.Blueair);
             }
             if (chkTarom.Active)
             {
-                airlines.Add(chkTarom.Label);
+                airlines.Add(Airline.Tarom);
             }
 
             var from = Airport.All.First(a => cbFrom.ActiveText.IndexOf(a.Code) == 0);

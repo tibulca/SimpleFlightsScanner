@@ -19,25 +19,32 @@ namespace FlightsApp
 
             var trips = new List<List<Flight>>();
 
-            var directFlights = flights.Where(f => f.From == fromAirport && f.To == toAirport);
+            var directFlights = GetDirectFlights(fromAirport, toAirport, flights);
             trips.AddRange(directFlights.Select(f => new List<Flight> { f }));
 
-            var fromFlights = flights.Where(f => f.From == fromAirport && f.To != toAirport);
-            var toFlights = flights.Where(f => f.From != fromAirport && f.To == toAirport);
-            foreach (var fromFlight in fromFlights)
-            {
-                var matchingToFlights1 = toFlights.Where(t => t.From == fromFlight.To).ToList();
-                var matchingToFlights2 = toFlights.Where(t => t.From == fromFlight.To && t.DateFrom.Date == fromFlight.DateTo.Date).ToList();
-                var matchingToFlights = toFlights.Where(t => t.From == fromFlight.To &&
-                                                        t.DateFrom.Date == fromFlight.DateTo.Date &&
-                                                        t.DateFrom > fromFlight.DateTo.AddMinutes(MinimumStopoverInMinutes));
-                if (matchingToFlights.Any())
-                {
-                    trips.AddRange(matchingToFlights.Select(t => new List<Flight> { fromFlight, t }));
-                }
-            }
+            var flightsWithStopover = GetFlightsWithStopover(fromAirport, toAirport, flights);
+            trips.AddRange(flightsWithStopover);
 
-            //var flightsWithStopover = fromFlights.Select(f => toFlights.FirstOrDefault(t => t.) f.From == fromAirport && f.To == toAirport);
+            //var fromFlights = flights.Where(f => f.From == fromAirport && f.To != toAirport);
+            //var toFlights = flights.Where(f => f.From != fromAirport && f.To == toAirport);
+            //foreach (var fromFlight in fromFlights)
+            //{
+            //    var matchingToFlights1 = toFlights.Where(t => t.From == fromFlight.To).ToList();
+            //    var matchingToFlights2 = toFlights.Where(t => t.From == fromFlight.To && t.DateFrom.Date == fromFlight.DateTo.Date).ToList();
+            //    var matchingToFlights = toFlights.Where(t => t.From == fromFlight.To &&
+            //                                            t.DateFrom.Date == fromFlight.DateTo.Date &&
+            //                                            t.DateFrom > fromFlight.DateTo.AddMinutes(MinimumStopoverInMinutes));
+            //    if (matchingToFlights.Any())
+            //    {
+            //        trips.AddRange(matchingToFlights.Select(t => new List<Flight> { fromFlight, t }));
+            //    }
+            //}
+
+            if (!trips.Any())
+            {
+                logger.Info($"\tNO SEARCH RESULTS!");
+                return;
+            }
 
             var minPrice = trips.Select(t => t.Sum(f => PriceInEur(f)))
                                 .Min();
@@ -55,14 +62,40 @@ namespace FlightsApp
 
         }
 
+        private IEnumerable<Flight> GetDirectFlights(Airport fromAirport, Airport toAirport, List<Flight> flights)
+        {
+            return flights.Where(f => f.From == fromAirport && f.To == toAirport);
+        }
+
+        private List<List<Flight>> GetFlightsWithStopover(Airport fromAirport, Airport toAirport, List<Flight> flights)
+        {
+            var matches = new List<List<Flight>>();
+            var fromFlights = flights.Where(f => f.From == fromAirport && f.To != toAirport);
+            var toFlights = flights.Where(f => f.From != fromAirport && f.To == toAirport);
+            foreach (var fromFlight in fromFlights)
+            {
+                var matchingToFlights1 = toFlights.Where(t => t.From == fromFlight.To).ToList();
+                var matchingToFlights2 = toFlights.Where(t => t.From == fromFlight.To && t.DateFrom.Date == fromFlight.DateTo.Date).ToList();
+                var matchingToFlights = toFlights.Where(t => t.From == fromFlight.To &&
+                                                        t.DateFrom.Date == fromFlight.DateTo.Date &&
+                                                        t.DateFrom > fromFlight.DateTo.AddMinutes(MinimumStopoverInMinutes));
+                matchingToFlights.ToList().ForEach(t =>
+                {
+                    matches.Add(new List<Flight> { fromFlight, t });
+                });
+            }
+
+            return matches;
+        }
+
         private void Log(List<Flight> trip)
         {
-			var airports = string.Join(" --> ", trip.Select(f => $"{f.From.Name} --> {f.To.Name}"));
+            var flights = string.Join(" --> ", trip.Select(f => $"{f.DateFrom.ToString("HH:mm")} {f.From.Name} - {f.To.Name} {f.DateTo.ToString("HH:mm")}"));
             var airlines = string.Join(", ", trip.Select(f => f.Airline.Name));
 
             var price = trip.Sum(f => PriceInEur(f));
 
-            logger.Info($"\t{trip.First().DateFrom.ToString("HH:mm")} - {airports}, ({airlines}), {(int)price} EUR");
+            logger.Info($"\t{flights}, ({airlines}), {(int)price} EUR");
 		}
 
         private double PriceInEur(Flight f)

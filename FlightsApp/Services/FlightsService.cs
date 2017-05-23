@@ -23,12 +23,12 @@ namespace FlightsApp
             };
         }
 
-        public List<Flight> Search(Airport from, Airport to, List<string> airlines, DateTime startDate, DateTime endDate)
+        public List<Flight> Search(Airport from, Airport to, List<Airline> airlines, DateTime startDate, DateTime endDate)
         {
             logger.Info($"Search flights from date range {startDate.ToString("dd/MMM/yyyy")} - {endDate.ToString("dd/MMM/yyyy")}");
             logger.Info(string.Empty);
 
-            var activeSearchProviders = searchProviders.Where(sp => airlines.Contains(sp.Airline.Name)).ToList();
+            var activeSearchProviders = searchProviders.Where(sp => airlines.Contains(sp.Airline)).ToList();
 
             var flights = new List<Flight>();
 

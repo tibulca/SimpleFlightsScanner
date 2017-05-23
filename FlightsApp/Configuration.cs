@@ -25,8 +25,10 @@ namespace FlightsApp
                 Airline.Wizzair,
 				new List<Airport>
 				{
-					Airport.Suceava,
-					Airport.LondonLuton,
+                    Airport.Suceava,
+                    Airport.ClujNapoca,
+
+                    Airport.LondonLuton,
 					Airport.RomeCiampino,
 					Airport.Bologna,
 					Airport.MilanBergamo,
@@ -46,19 +48,25 @@ namespace FlightsApp
         
         public static List<Route> Routes = new List<Route>
         {
-            // wizzair: suceava - for stopover
+            // wizzair: suceava/cluj - for stopover
             new Route(Airport.Suceava, Airport.LondonLuton),
             new Route(Airport.Suceava, Airport.RomeCiampino),
             new Route(Airport.Suceava, Airport.Bologna),
             new Route(Airport.Suceava, Airport.MilanBergamo),
             new Route(Airport.Suceava, Airport.VeniceTreviso),
+            new Route(Airport.ClujNapoca, Airport.LondonLuton),
+            new Route(Airport.ClujNapoca, Airport.RomeCiampino),
+            new Route(Airport.ClujNapoca, Airport.Bologna),
+            new Route(Airport.ClujNapoca, Airport.MilanBergamo),
+            new Route(Airport.ClujNapoca, Airport.VeniceTreviso),
 
-            // ryanair: dublin - direct flights
+            // blueair: dublin - direct flights
             new Route(Airport.Dublin, Airport.ClujNapoca),
             new Route(Airport.Dublin, Airport.Bucharest),
             new Route(Airport.Dublin, Airport.Bacau),
 
             // ryanair: dublin - for stopover
+            new Route(Airport.Dublin, Airport.Bucharest),
             new Route(Airport.Dublin, Airport.LondonLuton),
             new Route(Airport.Dublin, Airport.RomeCiampino),
             new Route(Airport.Dublin, Airport.Bologna),
