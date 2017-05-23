@@ -9,6 +9,7 @@ namespace FlightsApp.Configuration.Airlines
             Airport.Suceava,
             Airport.ClujNapoca,
             Airport.Bucharest,
+            Airport.Iasi,
 
             Airport.LondonLuton,
 
