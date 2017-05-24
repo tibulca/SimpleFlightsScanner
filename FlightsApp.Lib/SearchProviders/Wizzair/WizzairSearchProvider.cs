@@ -28,7 +28,7 @@ namespace FlightsApp.Lib.SearchProviders.Wizzair
 
         private async Task<WizzairFlights> DownloadFlightsAsync(SearchCriteria searchCriteria)
         {
-            var url = "https://be.wizzair.com/5.1.2/Api/search/timetable";
+            var url = "https://be.wizzair.com/5.1.4/Api/search/timetable";
             var contentType = "application/json";
             var requestBody = GetRequestBody(searchCriteria);
             var headers = GetRequestHeaders();

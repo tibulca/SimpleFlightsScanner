@@ -3,6 +3,9 @@ using System.Linq;
 using Gtk;
 using FlightsApp;
 using System.Collections.Generic;
+using FlightsApp.Lib.Utils;
+using FlightsApp.Lib.Services;
+using FlightsApp.Lib.Models;
 
 public partial class MainWindow : Gtk.Window
 {

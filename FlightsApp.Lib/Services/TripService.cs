@@ -43,7 +43,7 @@ namespace FlightsApp.Lib.Services
                  .ForEach(g =>
                  {
                      logger.Info(string.Empty);
-                     logger.Info($"{g.Key.ToString("dd.MM.yyyy")}:");
+                     logger.Info($"{g.Key.ToString("ddd dd/MMM/yyyy")}:");
                      g.OrderBy(f => f.First().DateFrom).ToList().ForEach(Log);
                  });
 

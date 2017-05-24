@@ -59,5 +59,11 @@
     <Compile Include="Utils\UILogger.cs" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FlightsApp.Lib\FlightsApp.Lib.csproj">
+      <Project>{9D36E927-3DD9-4739-B0B4-3A73845310A6}</Project>
+      <Name>FlightsApp.Lib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

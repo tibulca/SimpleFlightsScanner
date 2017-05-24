@@ -31,16 +31,13 @@ namespace FlightsApp.Lib.Services
 
         public List<Flight> Search(Airport from, Airport to, List<Airline> airlines, DateTime startDate, DateTime endDate)
         {
-            logger.Info($"Search flights from date range {startDate.ToString("dd/MMM/yyyy")} - {endDate.ToString("dd/MMM/yyyy")}");
+            logger.Info($"Search flights from date range {startDate.ToString("ddd dd/MMM/yyyy")} - {endDate.ToString("ddd dd/MMM/yyyy")}");
             logger.Info(string.Empty);
 
             var activeSearchProviders = searchProviders.Where(sp => airlines.Contains(sp.Airline)).ToList();
 
             var flights = new List<Flight>();
 
-            //Configuration.Configuration.Routes
-            //             .Where(route => route.ContainsAny(from, to))
-            //             .ToList()
             GetMatchingRoutes(from, to).ForEach(route =>
             {
                 logger.Info($"ROUTE: {route.Airport1} - {route.Airport2}");
@@ -98,8 +95,6 @@ namespace FlightsApp.Lib.Services
 
             LogFlightStatistics(flights.Where(f => f.From.Equals(route.Airport1)).ToList(), "-->");
             LogFlightStatistics(flights.Where(f => f.From.Equals(route.Airport2)).ToList(), "<--");
-
-            // logger.Info(JSONSerializer.ToJSON(flights));
         }
 
         private void LogFlightStatistics(List<Flight> flights, string direction)
@@ -112,4 +107,3 @@ namespace FlightsApp.Lib.Services
         }
     }
 }
-
