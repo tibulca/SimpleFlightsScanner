@@ -15,38 +15,17 @@ namespace FlightsApp.Lib.Services
             this.logger = logger;
         }
 
-		public void FindFightMatches(Airport fromAirport, Airport toAirport, List<Flight> flights)
+		public List<Trip> FindFightMatches(Airport fromAirport, Airport toAirport, List<Flight> flights)
         {
-			logger.Info($"TRIP from {fromAirport.Name} to {toAirport.Name}");
-
-            var trips = new List<List<Flight>>();
+            var trips = new List<Trip>();
 
             var directFlights = GetDirectFlights(fromAirport, toAirport, flights);
-            trips.AddRange(directFlights.Select(f => new List<Flight> { f }));
+            trips.AddRange(directFlights.Select(f => new Trip(new List<Flight> { f })));
 
             var flightsWithStopover = GetFlightsWithStopover(fromAirport, toAirport, flights);
             trips.AddRange(flightsWithStopover);
 
-            if (!trips.Any())
-            {
-                logger.Info($"\tNO SEARCH RESULTS!");
-                return;
-            }
-
-            var minPrice = trips.Select(t => t.Sum(f => PriceInEur(f)))
-                                .Min();
-            logger.Info($"\tmin price: {(int)minPrice}");
-
-            trips.GroupBy(t => t.First().DateFrom.Date)
-                 .OrderBy(g => g.Key)
-				 .ToList()
-                 .ForEach(g =>
-                 {
-                     logger.Info(string.Empty);
-                     logger.Info($"{g.Key.ToString("ddd dd/MMM/yyyy")}:");
-                     g.OrderBy(f => f.First().DateFrom).ToList().ForEach(Log);
-                 });
-
+            return trips;
         }
 
         private IEnumerable<Flight> GetDirectFlights(Airport fromAirport, Airport toAirport, List<Flight> flights)
@@ -54,9 +33,9 @@ namespace FlightsApp.Lib.Services
             return flights.Where(f => f.From == fromAirport && f.To == toAirport);
         }
 
-        private List<List<Flight>> GetFlightsWithStopover(Airport fromAirport, Airport toAirport, List<Flight> flights)
+        private List<Trip> GetFlightsWithStopover(Airport fromAirport, Airport toAirport, List<Flight> flights)
         {
-            var matches = new List<List<Flight>>();
+            var matches = new List<Trip>();
             var fromFlights = flights.Where(f => f.From == fromAirport && f.To != toAirport);
             var toFlights = flights.Where(f => f.From != fromAirport && f.To == toAirport);
             foreach (var fromFlight in fromFlights)
@@ -68,35 +47,11 @@ namespace FlightsApp.Lib.Services
                                                         t.DateFrom > fromFlight.DateTo.AddMinutes(MinimumStopoverInMinutes));
                 matchingToFlights.ToList().ForEach(t =>
                 {
-                    matches.Add(new List<Flight> { fromFlight, t });
+                    matches.Add(new Trip(new List<Flight> { fromFlight, t }));
                 });
             }
 
             return matches;
-        }
-
-        private void Log(List<Flight> trip)
-        {
-            var flights = string.Join(" --> ", trip.Select(f => $"{f.DateFrom.ToString("HH:mm")} {f.From.Name} - {f.To.Name} {f.DateTo.ToString("HH:mm")}"));
-            var airlines = string.Join(", ", trip.Select(f => f.Airline.Name));
-
-            var price = trip.Sum(f => PriceInEur(f));
-
-            logger.Info($"\t{flights}, ({airlines}), {(int)price} EUR");
-		}
-
-        private double PriceInEur(Flight f)
-        {
-            // todo: implement better converter
-            switch (f.CurrencyCode)
-            {
-                case "RON":
-                    return f.Price / 4.5709;
-                case "GBP":
-                    return f.Price / 0.85782;
-                default:
-                    return f.Price;
-            }
         }
     }
 }
