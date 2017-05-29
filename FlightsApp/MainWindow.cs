@@ -148,38 +148,30 @@ public partial class MainWindow : Gtk.Window
         return f.Price / CurrencyRates.First(cr => cr.CurrencyCode.Equals(f.CurrencyCode)).RateForOneEuro;
     }
 
-    protected void OnCalendar2PrevMonth(object sender, EventArgs e)
+    protected void OnStartDateChanged(object sender, EventArgs e)
     {
         SetDefaultEndDate();
+        UpdateSelectedDates();
     }
 
-    protected void OnCalendar2DaySelected(object sender, EventArgs e)
+    protected void OnEndDayChanged(object sender, EventArgs e)
     {
-        SetDefaultEndDate();
-    }
-
-    protected void OnCalendar2NextMonth(object sender, EventArgs e)
-    {
-        SetDefaultEndDate();
-    }
-
-    protected void OnCalendar2MonthChanged(object sender, EventArgs e)
-    {
-        SetDefaultEndDate();
-    }
-
-    protected void OnCalendar2PrevYear(object sender, EventArgs e)
-    {
-        SetDefaultEndDate();
-    }
-
-    protected void OnCalendar2NextYear(object sender, EventArgs e)
-    {
-        SetDefaultEndDate();
+        UpdateSelectedDates();
     }
 
     private void SetDefaultEndDate()
     {
-        calendarEndDate.Date = calendarStartDate.Date.AddDays(DEFAULT_DATE_DIFF);
+        var endDate = calendarStartDate.Date.AddDays(DEFAULT_DATE_DIFF);
+        if (calendarEndDate.Date == endDate)
+        {
+            return;
+        }
+
+        calendarEndDate.Date = endDate;
+    }
+
+    private void UpdateSelectedDates()
+    {
+        lblDates.Text = $"{calendarStartDate.Date:dd.MMM.yyyy ddd}\n{calendarEndDate.Date:dd.MMM.yyyy ddd}";
     }
 }

@@ -27,9 +27,11 @@ public partial class MainWindow
 
 	private global::Gtk.ComboBox cbFrom;
 
-	private global::Gtk.ComboBox cbTo;
+    private global::Gtk.ComboBox cbTo;
 
-	protected virtual void Build()
+    private global::Gtk.Label lblDates;
+
+    protected virtual void Build()
 	{
 		global::Stetic.Gui.Initialize(this);
 		// Widget MainWindow
@@ -147,15 +149,24 @@ public partial class MainWindow
 		global::Gtk.Fixed.FixedChild w11 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.cbFrom]));
 		w11.X = 500;
 		w11.Y = 10;
-		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.cbTo = global::Gtk.ComboBox.NewText();
-		this.cbTo.WidthRequest = 150;
-		this.cbTo.Name = "cbTo";
-		this.fixed1.Add(this.cbTo);
-		global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.cbTo]));
-		w12.X = 500;
-		w12.Y = 40;
-		this.Add(this.fixed1);
+        // Container child fixed1.Gtk.Fixed+FixedChild
+        this.cbTo = global::Gtk.ComboBox.NewText();
+        this.cbTo.WidthRequest = 150;
+        this.cbTo.Name = "cbTo";
+        this.fixed1.Add(this.cbTo);
+        global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.cbTo]));
+        w12.X = 500;
+        w12.Y = 40;
+        // Container child fixed1.Gtk.Fixed+FixedChild
+        this.lblDates = global::Gtk.Label.New("Selected dates");
+        this.lblDates.WidthRequest = 100;
+        this.lblDates.Name = "lblDates";
+        this.lblDates.SetAlignment(0, 0);
+        this.fixed1.Add(this.lblDates);
+        global::Gtk.Fixed.FixedChild w13 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.lblDates]));
+        w13.X = 500;
+        w13.Y = 150;
+        this.Add(this.fixed1);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
@@ -164,12 +175,18 @@ public partial class MainWindow
 		this.DefaultHeight = 733;
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
-		this.calendarStartDate.PrevMonth += new global::System.EventHandler(this.OnCalendar2PrevMonth);
-		this.calendarStartDate.DaySelected += new global::System.EventHandler(this.OnCalendar2DaySelected);
-		this.calendarStartDate.NextMonth += new global::System.EventHandler(this.OnCalendar2NextMonth);
-		this.calendarStartDate.MonthChanged += new global::System.EventHandler(this.OnCalendar2MonthChanged);
-		this.calendarStartDate.PrevYear += new global::System.EventHandler(this.OnCalendar2PrevYear);
-		this.calendarStartDate.NextYear += new global::System.EventHandler(this.OnCalendar2NextYear);
-		this.btnSearch.Clicked += new global::System.EventHandler(this.OnButton1Clicked);
+		this.calendarStartDate.PrevMonth += new global::System.EventHandler(this.OnStartDateChanged);
+		this.calendarStartDate.DaySelected += new global::System.EventHandler(this.OnStartDateChanged);
+		this.calendarStartDate.NextMonth += new global::System.EventHandler(this.OnStartDateChanged);
+		this.calendarStartDate.MonthChanged += new global::System.EventHandler(this.OnStartDateChanged);
+		this.calendarStartDate.PrevYear += new global::System.EventHandler(this.OnStartDateChanged);
+        this.calendarStartDate.NextYear += new global::System.EventHandler(this.OnStartDateChanged);
+        this.calendarEndDate.DaySelected += new global::System.EventHandler(this.OnEndDayChanged);
+        this.calendarEndDate.PrevMonth += new global::System.EventHandler(this.OnEndDayChanged);
+        this.calendarEndDate.NextMonth += new global::System.EventHandler(this.OnEndDayChanged);
+        this.calendarEndDate.MonthChanged += new global::System.EventHandler(this.OnEndDayChanged);
+        this.calendarEndDate.PrevYear += new global::System.EventHandler(this.OnEndDayChanged);
+        this.calendarEndDate.NextYear += new global::System.EventHandler(this.OnEndDayChanged);
+        this.btnSearch.Clicked += new global::System.EventHandler(this.OnButton1Clicked);
 	}
 }

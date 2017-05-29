@@ -22,7 +22,7 @@
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="DisplayOptions">35</property>
-            <signal name="PrevMonth" handler="OnCalendar2PrevMonth" />
+            <signal name="PrevMonth" handler="OnStartDateChanged" />
             <signal name="DaySelected" handler="OnCalendar2DaySelected" />
             <signal name="NextMonth" handler="OnCalendar2NextMonth" />
             <signal name="MonthChanged" handler="OnCalendar2MonthChanged" />
@@ -215,6 +215,17 @@
           <packing>
             <property name="X">500</property>
             <property name="Y">40</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="lblDates">
+            <property name="MemberName" />
+            <property name="WidthRequest">150</property>
+            <property name="Items" translatable="yes" />
+          </widget>
+          <packing>
+            <property name="X">500</property>
+            <property name="Y">100</property>
           </packing>
         </child>
       </widget>
