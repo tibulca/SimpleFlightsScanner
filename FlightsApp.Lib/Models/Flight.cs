@@ -12,6 +12,7 @@ namespace FlightsApp.Lib.Models
         public Airport To { get; set; }
         public double Price { get; set; }
         public string CurrencyCode { get; set; }
+        public double PriceInEuro { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
 		public Airline Airline { get; set; }

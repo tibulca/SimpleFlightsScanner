@@ -15,9 +15,11 @@ namespace FlightsApp.Lib.Services
         private readonly List<ISearchProvider> searchProviders;
         private readonly ILogger logger;
         private readonly IApiHttpClient apiHttpClient;
+        private readonly CurrencyConverter currencyConverter;
 
-        public FlightsService(ILogger logger)
+        public FlightsService(CurrencyConverter currencyConverter, ILogger logger)
         {
+            this.currencyConverter = currencyConverter;
             this.logger = logger;
 
             apiHttpClient = new ApiHttpClient();//new ApiHttpClientMock();
@@ -57,6 +59,8 @@ namespace FlightsApp.Lib.Services
                     logger.Info(string.Empty);
                 });
             });
+
+            flights.ForEach(f => f.PriceInEuro = this.currencyConverter.GetPriceInEuro(f));
 
             return flights;
         }

@@ -11,25 +11,7 @@ public partial class MainWindow : Gtk.Window
 {
     private const int DEFAULT_DATE_DIFF = 7;
 
-    private static List<CurrencyRate> CurrencyRates = new List<CurrencyRate>
-    {
-        new CurrencyRate
-        {
-            CurrencyCode = "RON",
-            RateForOneEuro = 4.5709
-        },
-        new CurrencyRate
-        {
-            CurrencyCode = "GBP",
-            RateForOneEuro = 0.85782
-        },
-        new CurrencyRate
-        {
-            CurrencyCode = "EUR",
-            RateForOneEuro = 1
-        },
-    };
-
+    private readonly CurrencyConverter currencyConverter;
     private readonly ILogger logger;
     private readonly FlightsService flightsService;
     private readonly TripService tripService;
@@ -41,8 +23,13 @@ public partial class MainWindow : Gtk.Window
         calendarStartDate.Date = DateTime.Now.AddDays(1);
         SetDefaultEndDate();
 
+        currencyConverter = new CurrencyConverter(new Dictionary<string, double>
+        {
+            { "RON", double.Parse(txtRon.Text) },
+            { "GBP", double.Parse(txtGbp.Text) },
+        });
         logger = new UILogger(txtInfo);
-		flightsService = new FlightsService(logger);
+		flightsService = new FlightsService(currencyConverter, logger);
 		tripService = new TripService(logger);
 
         LoadAirports();
@@ -116,7 +103,7 @@ public partial class MainWindow : Gtk.Window
             return;
         }
 
-        var minPrice = trips.Select(t => t.Flights.Sum(f => PriceInEur(f)))
+        var minPrice = trips.Select(t => t.TotalPrice)
                             .Min();
         logger.Info($"\tmin price: {(int)minPrice}");
 
@@ -136,16 +123,9 @@ public partial class MainWindow : Gtk.Window
     {
         var flights = string.Join(" --> ", trip.Flights.Select(f => $"{f.DateFrom.ToString("HH:mm")} {f.From.Name} - {f.To.Name} {f.DateTo.ToString("HH:mm")}"));
         var airlines = string.Join(", ", trip.Flights.Select(f => f.Airline.Name));
+        var prices = string.Join(", ", trip.Flights.Select(f => $"{(int)f.Price} {f.CurrencyCode}"));
 
-        var price = trip.Flights.Sum(f => PriceInEur(f));
-
-        logger.Info($"\t{flights}, ({airlines}),\t{(int)price} EUR");
-    }
-
-    private double PriceInEur(Flight f)
-    {
-        // todo: implement better converter
-        return f.Price / CurrencyRates.First(cr => cr.CurrencyCode.Equals(f.CurrencyCode)).RateForOneEuro;
+        logger.Info($"\t{flights}, ({airlines}),\t{(int)trip.TotalPrice} EUR\t({prices})");
     }
 
     protected void OnStartDateChanged(object sender, EventArgs e)

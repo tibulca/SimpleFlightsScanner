@@ -75,7 +75,7 @@
     <Compile Include="Utils\JsonSerializer.cs" />
     <Compile Include="Utils\DebugLogger.cs" />
     <Compile Include="Models\Trip.cs" />
-    <Compile Include="Models\CurrencyRate.cs" />
+    <Compile Include="Services\CurrencyConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,11 +7,12 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/FlightsApp.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="1264 733">
+  <widget class="Gtk.Window" id="MainWindow" design-size="1320 733">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Flights</property>
-    <property name="Icon">stock:gtk-zoom-fit Menu</property>
+    <property name="Icon">stock:gtk-find Menu</property>
     <property name="WindowPosition">CenterAlways</property>
+    <property name="DefaultWidth">1200</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
       <widget class="Gtk.Fixed" id="fixed1">
@@ -23,11 +24,12 @@
             <property name="CanFocus">True</property>
             <property name="DisplayOptions">35</property>
             <signal name="PrevMonth" handler="OnStartDateChanged" />
-            <signal name="DaySelected" handler="OnCalendar2DaySelected" />
-            <signal name="NextMonth" handler="OnCalendar2NextMonth" />
-            <signal name="MonthChanged" handler="OnCalendar2MonthChanged" />
-            <signal name="PrevYear" handler="OnCalendar2PrevYear" />
-            <signal name="NextYear" handler="OnCalendar2NextYear" />
+            <signal name="DaySelected" handler="OnStartDateChanged" />
+            <signal name="NextMonth" handler="OnStartDateChanged" />
+            <signal name="MonthChanged" handler="OnStartDateChanged" />
+            <signal name="PrevYear" handler="OnStartDateChanged" />
+            <signal name="DaySelectedDoubleClick" handler="OnStartDateChanged" />
+            <signal name="NextYear" handler="OnStartDateChanged" />
           </widget>
           <packing>
             <property name="X">15</property>
@@ -39,6 +41,13 @@
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="DisplayOptions">35</property>
+            <signal name="PrevMonth" handler="OnEndDayChanged" />
+            <signal name="DaySelected" handler="OnEndDayChanged" />
+            <signal name="NextMonth" handler="OnEndDayChanged" />
+            <signal name="MonthChanged" handler="OnEndDayChanged" />
+            <signal name="PrevYear" handler="OnEndDayChanged" />
+            <signal name="DaySelectedDoubleClick" handler="OnEndDayChanged" />
+            <signal name="NextYear" handler="OnEndDayChanged" />
           </widget>
           <packing>
             <property name="X">250</property>
@@ -48,7 +57,8 @@
         <child>
           <widget class="Gtk.Button" id="btnSearch">
             <property name="MemberName" />
-            <property name="WidthRequest">100</property>
+            <property name="WidthRequest">120</property>
+            <property name="HeightRequest">50</property>
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Search</property>
@@ -56,7 +66,7 @@
             <signal name="Clicked" handler="OnButton1Clicked" />
           </widget>
           <packing>
-            <property name="X">800</property>
+            <property name="X">1090</property>
             <property name="Y">10</property>
           </packing>
         </child>
@@ -220,12 +230,70 @@
         <child>
           <widget class="Gtk.Label" id="lblDates">
             <property name="MemberName" />
-            <property name="WidthRequest">150</property>
-            <property name="Items" translatable="yes" />
+            <property name="WidthRequest">120</property>
+            <property name="LabelProp" translatable="yes">Selected dates</property>
           </widget>
           <packing>
             <property name="X">500</property>
             <property name="Y">100</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label1">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">1 EUR = </property>
+          </widget>
+          <packing>
+            <property name="X">780</property>
+            <property name="Y">17</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label2">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">GBP</property>
+          </widget>
+          <packing>
+            <property name="X">885</property>
+            <property name="Y">47</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Entry" id="txtRon">
+            <property name="MemberName" />
+            <property name="WidthRequest">50</property>
+            <property name="CanFocus">True</property>
+            <property name="Text" translatable="yes">4.566</property>
+            <property name="IsEditable">True</property>
+            <property name="InvisibleChar">●</property>
+          </widget>
+          <packing>
+            <property name="X">830</property>
+            <property name="Y">12</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Entry" id="txtGbp">
+            <property name="MemberName" />
+            <property name="WidthRequest">50</property>
+            <property name="CanFocus">True</property>
+            <property name="Text" translatable="yes">0.869</property>
+            <property name="IsEditable">True</property>
+            <property name="InvisibleChar">●</property>
+          </widget>
+          <packing>
+            <property name="X">830</property>
+            <property name="Y">42</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label3">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">RON</property>
+          </widget>
+          <packing>
+            <property name="X">885</property>
+            <property name="Y">17</property>
           </packing>
         </child>
       </widget>

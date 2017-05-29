@@ -16,13 +16,13 @@ namespace FlightsApp.Lib.Models
             } 
         }
 
-        //public double TotalPrice
-        //{
-        //    get
-        //    {
-        //        return Flights.Sum(f => f.Price);
-        //    }
-        //}
+        public double TotalPrice
+        {
+            get
+            {
+                return Flights.Sum(f => f.PriceInEuro);
+            }
+        }
 
         public Trip(List<Flight> flights)
         {
