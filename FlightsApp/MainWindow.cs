@@ -77,16 +77,23 @@ public partial class MainWindow : Gtk.Window
             }
 
             var from = Airport.All.First(a => cbFrom.ActiveText.IndexOf(a.Code) == (cbFrom.ActiveText.Length - 3));
-            var to = Airport.All.First(a => cbTo.ActiveText.IndexOf(a.Code) == (cbTo.ActiveText.Length - 3));
+            var to = from;
+            if (!chkOnlyFrom.Active)
+            {
+                to = Airport.All.First(a => cbTo.ActiveText.IndexOf(a.Code) == (cbTo.ActiveText.Length - 3));
+            }
 
-            var flights = flightsService.Search(from, to, airlines, calendarStartDate.Date, calendarEndDate.Date);
+            var flights = flightsService.Search(from, to, airlines, calendarStartDate.Date, calendarEndDate.Date, chkDirectFlights.Active, chkOnlyFrom.Active);
             logger.Info("____________________________________");
 
-            var tripsFrom = tripService.FindFightMatches(from, to, flights);
-            LogTrips(from, to, tripsFrom);
+            if (!chkOnlyFrom.Active)
+            {
+                var tripsFrom = tripService.FindFightMatches(from, to, flights);
+                LogTrips(from, to, tripsFrom);
 
-            var tripsBack = tripService.FindFightMatches(to, from, flights);
-            LogTrips(to, from, tripsBack);
+                var tripsBack = tripService.FindFightMatches(to, from, flights);
+                LogTrips(to, from, tripsBack);
+            }
         }
         catch (Exception ex)
         {
@@ -121,11 +128,11 @@ public partial class MainWindow : Gtk.Window
 
     private void Log(Trip trip)
     {
-        var flights = string.Join(" --> ", trip.Flights.Select(f => $"{f.DateFrom.ToString("HH:mm")} {f.From.Name} - {f.To.Name} {f.DateTo.ToString("HH:mm")}"));
+        var flights = string.Join("\t-->\t", trip.Flights.Select(f => $"{f.DateFrom.ToString("HH:mm")}\t{f.From.Name} - {f.To.Name}\t{f.DateTo.ToString("HH:mm")}"));
         var airlines = string.Join(", ", trip.Flights.Select(f => f.Airline.Name));
         var prices = string.Join(", ", trip.Flights.Select(f => $"{(int)f.Price} {f.CurrencyCode}"));
 
-        logger.Info($"\t{flights}, ({airlines}),\t{(int)trip.TotalPrice} EUR\t({prices})");
+        logger.Info($"\t{flights}\t({airlines})\t{(int)trip.TotalPrice} EUR\t({prices})");
     }
 
     protected void OnStartDateChanged(object sender, EventArgs e)
@@ -153,5 +160,16 @@ public partial class MainWindow : Gtk.Window
     private void UpdateSelectedDates()
     {
         lblDates.Text = $"{calendarStartDate.Date:dd.MMM.yyyy ddd}\n{calendarEndDate.Date:dd.MMM.yyyy ddd}";
+    }
+
+    protected void OnChkOnlyFromToggled(object sender, EventArgs e)
+    {
+        chkDirectFlights.Visible = !chkOnlyFrom.Active;
+        cbTo.Visible = !chkOnlyFrom.Active;
+
+        if (chkOnlyFrom.Active)
+        {
+            chkDirectFlights.Active = true;
+        }
     }
 }

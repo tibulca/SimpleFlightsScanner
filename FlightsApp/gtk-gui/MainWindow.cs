@@ -41,6 +41,10 @@ public partial class MainWindow
 
 	private global::Gtk.Label label3;
 
+	private global::Gtk.CheckButton chkDirectFlights;
+
+	private global::Gtk.CheckButton chkOnlyFrom;
+
 	protected virtual void Build()
 	{
 		global::Stetic.Gui.Initialize(this);
@@ -177,7 +181,7 @@ public partial class MainWindow
 		this.fixed1.Add(this.lblDates);
 		global::Gtk.Fixed.FixedChild w13 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.lblDates]));
 		w13.X = 500;
-		w13.Y = 100;
+		w13.Y = 135;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.label1 = new global::Gtk.Label();
 		this.label1.Name = "label1";
@@ -226,6 +230,28 @@ public partial class MainWindow
 		global::Gtk.Fixed.FixedChild w18 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.label3]));
 		w18.X = 885;
 		w18.Y = 17;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.chkDirectFlights = new global::Gtk.CheckButton();
+		this.chkDirectFlights.CanFocus = true;
+		this.chkDirectFlights.Name = "chkDirectFlights";
+		this.chkDirectFlights.Label = global::Mono.Unix.Catalog.GetString("Direct flights only");
+		this.chkDirectFlights.DrawIndicator = true;
+		this.chkDirectFlights.UseUnderline = true;
+		this.fixed1.Add(this.chkDirectFlights);
+		global::Gtk.Fixed.FixedChild w19 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkDirectFlights]));
+		w19.X = 500;
+		w19.Y = 100;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.chkOnlyFrom = new global::Gtk.CheckButton();
+		this.chkOnlyFrom.CanFocus = true;
+		this.chkOnlyFrom.Name = "chkOnlyFrom";
+		this.chkOnlyFrom.Label = global::Mono.Unix.Catalog.GetString("Only from");
+		this.chkOnlyFrom.DrawIndicator = true;
+		this.chkOnlyFrom.UseUnderline = true;
+		this.fixed1.Add(this.chkOnlyFrom);
+		global::Gtk.Fixed.FixedChild w20 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.chkOnlyFrom]));
+		w20.X = 500;
+		w20.Y = 75;
 		this.Add(this.fixed1);
 		if ((this.Child != null))
 		{
@@ -249,5 +275,6 @@ public partial class MainWindow
 		this.calendarEndDate.DaySelectedDoubleClick += new global::System.EventHandler(this.OnEndDayChanged);
 		this.calendarEndDate.NextYear += new global::System.EventHandler(this.OnEndDayChanged);
 		this.btnSearch.Clicked += new global::System.EventHandler(this.OnButton1Clicked);
+		this.chkOnlyFrom.Toggled += new global::System.EventHandler(this.OnChkOnlyFromToggled);
 	}
 }

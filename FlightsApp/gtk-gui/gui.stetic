@@ -235,7 +235,7 @@
           </widget>
           <packing>
             <property name="X">500</property>
-            <property name="Y">100</property>
+            <property name="Y">135</property>
           </packing>
         </child>
         <child>
@@ -294,6 +294,35 @@
           <packing>
             <property name="X">885</property>
             <property name="Y">17</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.CheckButton" id="chkDirectFlights">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Label" translatable="yes">Direct flights only</property>
+            <property name="DrawIndicator">True</property>
+            <property name="HasLabel">True</property>
+            <property name="UseUnderline">True</property>
+          </widget>
+          <packing>
+            <property name="X">500</property>
+            <property name="Y">100</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.CheckButton" id="chkOnlyFrom">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Label" translatable="yes">Only from</property>
+            <property name="DrawIndicator">True</property>
+            <property name="HasLabel">True</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Toggled" handler="OnChkOnlyFromToggled" after="yes" />
+          </widget>
+          <packing>
+            <property name="X">500</property>
+            <property name="Y">75</property>
           </packing>
         </child>
       </widget>

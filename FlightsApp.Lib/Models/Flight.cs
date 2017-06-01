@@ -39,6 +39,11 @@ namespace FlightsApp.Lib.Models
 
         public static List<Flight> FromRyanairFlight(RyanairFlights flights)
         {
+            if (flights.trips == null)
+            {
+                return new List<Flight>();
+            }
+
             return flights.trips
                           .SelectMany(trip => trip.dates
                           .SelectMany(flightDate => flightDate.flights
