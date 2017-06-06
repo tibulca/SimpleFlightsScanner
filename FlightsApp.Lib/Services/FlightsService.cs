@@ -42,8 +42,6 @@ namespace FlightsApp.Lib.Services
 
             GetMatchingRoutes(from, to, directFlightsOnly || onlyFrom).ForEach(route =>
             {
-                logger.Info($"ROUTE: {route.Airport1} - {route.Airport2}");
-
                 var searchCriteria = new SearchCriteria
                 {
                     Route = route,
@@ -110,23 +108,16 @@ namespace FlightsApp.Lib.Services
 
         private void LogFlights(List<Flight> flights, ISearchProvider searchProvider, Route route)
         {
-            logger.Info($"\t{searchProvider.Airline.Name}");
-
-            LogFlightStatistics(flights.Where(f => f.From.Equals(route.Airport1)).ToList(), "-->");
-            logger.Info("");
-            LogFlightStatistics(flights.Where(f => f.From.Equals(route.Airport2)).ToList(), "<--");
+            LogFlightStatistics(flights.Where(f => f.From.Equals(route.Airport1)));
+            logger.Info(string.Empty);
+            LogFlightStatistics(flights.Where(f => f.From.Equals(route.Airport2)));
+            logger.Info(string.Empty);
         }
 
-        private void LogFlightStatistics(List<Flight> flights, string direction)
+        private void LogFlightStatistics(IEnumerable<Flight> flights)
         {
-            //logger.Info($"\t\t{direction} {flights.Count} flights");
-            //if (flights.Count > 0)
-            //{
-            //    logger.Info($"\t\t{direction} [{flights.Min(f => f.Price)} - {flights.Max(f => f.Price)}] {flights.First().CurrencyCode}");
-            //}
-            flights.ForEach(f =>
-                            logger.Info($"{f.DateFrom:ddd dd.MM HH:mm}\t{f.From.Name}\t{f.To.Name}\t{f.DateTo:ddd dd.MM HH:mm}\t{f.PriceInEuro} EUR")
-                           );
+            flights.ToList()
+                   .ForEach(f => logger.Info($"{f.DateFrom:ddd dd.MM HH:mm}\t{f.From.Name}\t{f.To.Name}\t{f.DateTo:ddd dd.MM HH:mm}\t{(int)f.PriceInEuro} EUR\t{f.Price} {f.CurrencyCode}\t{f.Airline.Name}"));
         }
     }
 }
