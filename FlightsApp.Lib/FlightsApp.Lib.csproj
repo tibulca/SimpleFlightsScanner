@@ -78,6 +78,11 @@
     <Compile Include="Services\CurrencyConverter.cs" />
     <Compile Include="Services\CurrencyProvider.cs" />
     <Compile Include="Models\CurrencyRates.cs" />
+    <Compile Include="SearchProviders\Blueair\BlueairFlights.cs" />
+    <Compile Include="SearchProviders\Blueair\BlueairSearchProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SearchProviders\Blueair\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,7 +10,9 @@ namespace FlightsApp.Lib.Configuration.Airlines
             Airport.Bucharest,
             Airport.ClujNapoca,
             Airport.Bacau,
-            Airport.Iasi
+            Airport.Iasi,
+
+            Airport.Dublin
         };
     }
 }

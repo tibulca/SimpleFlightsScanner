@@ -27,7 +27,8 @@ namespace FlightsApp.Lib.Services
             {
                 new WizzairSearchProvider(logger, apiHttpClient),
                 new RyanairSearchProvider(logger, apiHttpClient),
-				new TaromSearchProvider(logger, apiHttpClient)
+				new TaromSearchProvider(logger, apiHttpClient),
+                new BlueairSearchProvider(logger, apiHttpClient)
             };
         }
 
