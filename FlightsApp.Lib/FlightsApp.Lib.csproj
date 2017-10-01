@@ -76,6 +76,8 @@
     <Compile Include="Utils\DebugLogger.cs" />
     <Compile Include="Models\Trip.cs" />
     <Compile Include="Services\CurrencyConverter.cs" />
+    <Compile Include="Services\CurrencyProvider.cs" />
+    <Compile Include="Models\CurrencyRates.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

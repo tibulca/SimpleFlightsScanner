@@ -28,7 +28,8 @@ namespace FlightsApp.Lib.SearchProviders.Wizzair
 
         private async Task<WizzairFlights> DownloadFlightsAsync(SearchCriteria searchCriteria)
         {
-            var url = "https://be.wizzair.com/5.1.4/Api/search/timetable";
+            var apiBaseUrl = await GetApiBaseUrl();
+            var url = $"{apiBaseUrl}/search/timetable";
             var contentType = "application/json";
             var requestBody = GetRequestBody(searchCriteria);
             var headers = GetRequestHeaders();
@@ -36,6 +37,14 @@ namespace FlightsApp.Lib.SearchProviders.Wizzair
             var httpResult = await apiHttpClient.SendAsync(url, HttpMethod.Post, requestBody, contentType, headers);
 
 			return Deserialize<WizzairFlights>(httpResult);
+        }
+
+        private async Task<string> GetApiBaseUrl()
+        {
+            var httpResult = await apiHttpClient.GetAsync("https://wizzair.com/static/metadata.json");
+            var metadata = Deserialize<Dictionary<string, string>>(httpResult);
+
+            return metadata["apiUrl"];
         }
 
         private Dictionary<string, string> GetRequestHeaders()

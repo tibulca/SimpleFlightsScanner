@@ -23,16 +23,28 @@ public partial class MainWindow : Gtk.Window
         calendarStartDate.Date = DateTime.Now.AddDays(1);
         SetDefaultEndDate();
 
-        currencyConverter = new CurrencyConverter(new Dictionary<string, double>
-        {
-            { "RON", double.Parse(txtRon.Text) },
-            { "GBP", double.Parse(txtGbp.Text) },
-        });
+        currencyConverter = BuildCurrencyConverter();
+
         logger = new UILogger(txtInfo);
 		flightsService = new FlightsService(currencyConverter, logger);
 		tripService = new TripService(logger);
 
         LoadAirports();
+    }
+
+    private CurrencyConverter BuildCurrencyConverter()
+    {
+        var currencyProvider = new CurrencyProvider(logger, new ApiHttpClient());
+        var rates = currencyProvider.GetEurRates().Result;
+
+        txtRon.Text = rates.Rates["RON"].ToString("N4");
+        txtGbp.Text = rates.Rates["GBP"].ToString("N4");
+
+        return new CurrencyConverter(new Dictionary<string, double>
+        {
+            { "RON", rates.Rates["RON"] },
+            { "GBP", rates.Rates["GBP"] },
+        });
     }
 
     private void LoadAirports()

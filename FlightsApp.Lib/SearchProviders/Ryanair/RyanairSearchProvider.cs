@@ -45,7 +45,7 @@ namespace FlightsApp.Lib.SearchProviders.Ryanair
 		private async Task<RyanairFlights> DownloadFlightsAsync(SearchCriteria searchCriteria)
 		{
             var flexDays = DateUtils.DaysDiff(searchCriteria.FromDate, searchCriteria.ToDate);
-            var url = $"https://desktopapps.ryanair.com/en-gb/availability?ADT=1&CHD=0&DateIn={searchCriteria.FromDateString}&DateOut={searchCriteria.FromDateString}&Destination={searchCriteria.Route.Airport2.Code}&FlexDaysIn={flexDays}&FlexDaysOut={flexDays}&INF=0&Origin={searchCriteria.Route.Airport1.Code}&RoundTrip=true&TEEN=0";
+            var url = $"https://desktopapps.ryanair.com/en-gb/availability?ADT=1&CHD=0&DateIn={searchCriteria.FromDateString}&DateOut={searchCriteria.FromDateString}&Destination={searchCriteria.Route.Airport2.Code}&FlexDaysIn={flexDays}&FlexDaysOut={flexDays}&INF=0&Origin={searchCriteria.Route.Airport1.Code}&RoundTrip=true&ToUs=AGREED&TEEN=0";
 
 			var httpResult = await apiHttpClient.SendAsync(url, HttpMethod.Get, null, null, null);
 
