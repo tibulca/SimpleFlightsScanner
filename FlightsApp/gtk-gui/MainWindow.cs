@@ -150,7 +150,6 @@ public partial class MainWindow
 		this.chkTarom.CanFocus = true;
 		this.chkTarom.Name = "chkTarom";
 		this.chkTarom.Label = global::Mono.Unix.Catalog.GetString("Tarom");
-		this.chkTarom.Active = true;
 		this.chkTarom.DrawIndicator = true;
 		this.chkTarom.UseUnderline = true;
 		this.fixed1.Add(this.chkTarom);
