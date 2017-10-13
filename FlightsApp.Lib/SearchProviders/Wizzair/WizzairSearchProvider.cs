@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -31,12 +32,55 @@ namespace FlightsApp.Lib.SearchProviders.Wizzair
             var apiBaseUrl = await GetApiBaseUrl();
             var url = $"{apiBaseUrl}/search/timetable";
             var contentType = "application/json";
-            var requestBody = GetRequestBody(searchCriteria);
+            var requestBody = GetTimetableRequestBody(searchCriteria);
             var headers = GetRequestHeaders();
 
             var httpResult = await apiHttpClient.SendAsync(url, HttpMethod.Post, requestBody, contentType, headers);
 
-			return Deserialize<WizzairFlights>(httpResult);
+			var flights = Deserialize<WizzairFlights>(httpResult);
+
+            if (flights.outboundFlights.Any())
+            {
+                var durations = await GetFlightsDuration(searchCriteria,
+                                                         flights.outboundFlights.FirstOrDefault()?.departureDate,
+                                                         flights.returnFlights.FirstOrDefault()?.departureDate);
+
+                flights.outboundFlights.ForEach(f => {
+                    f.arrivalDates = f.departureDates.Select(d => d.AddMinutes(durations.Item1)).ToList();
+                });
+
+                flights.returnFlights.ForEach(f => {
+                    f.arrivalDates = f.departureDates.Select(d => d.AddMinutes(durations.Item2)).ToList();
+                });
+            }
+
+            return flights;
+        }
+
+        private async Task<Tuple<int, int>> GetFlightsDuration(SearchCriteria searchCriteria, DateTime? outboundDate, DateTime? inboundDate)
+        {
+            var apiBaseUrl = await GetApiBaseUrl();
+            var url = $"{apiBaseUrl}/search/search";
+            var contentType = "application/json";
+            var requestBody = GetSearchRequestBody(searchCriteria, outboundDate, inboundDate);
+            var headers = GetRequestHeaders();
+
+            var httpResult = await apiHttpClient.SendAsync(url, HttpMethod.Post, requestBody, contentType, headers);
+
+            var flights = Deserialize<WizzairDayFlights>(httpResult);
+
+            return new Tuple<int, int>(GetDurationOrDefault(flights.outboundFlights.FirstOrDefault(), 120),
+                                       GetDurationOrDefault(flights.returnFlights.FirstOrDefault(), 120));
+        }
+
+        private int GetDurationOrDefault(WizzairDayFlights.Flight flight, int defaultDuration)
+        {
+            if (flight == null)
+            {
+                return defaultDuration;
+            }
+
+            return (int)flight.arrivalDateTime.Subtract(flight.departureDateTime).TotalMinutes;
         }
 
         private async Task<string> GetApiBaseUrl()
@@ -62,7 +106,7 @@ namespace FlightsApp.Lib.SearchProviders.Wizzair
 			};
         }
 
-		private string GetRequestBody(SearchCriteria searchCriteria)
+        private string GetTimetableRequestBody(SearchCriteria searchCriteria)
         {
 			return $@"
 {{
@@ -81,6 +125,32 @@ namespace FlightsApp.Lib.SearchProviders.Wizzair
         }}
     ],
     'priceType': 'wdc'
+}}".Replace("'", "\"");
+        }
+
+        private string GetSearchRequestBody(SearchCriteria searchCriteria, DateTime? outboundDate, DateTime? inboundDate)
+        {
+            return $@"
+{{
+    'adultCount': 1,
+    'childCount': 0,
+    'flightList': [
+        {{
+            'arrivalStation': '{searchCriteria.Route.Airport2.Code}',
+            'departureDate': '{outboundDate.GetValueOrDefault(searchCriteria.FromDate).ToString("yyyy-MM-dd")}',
+            'departureStation': '{searchCriteria.Route.Airport1.Code}'
+        }},
+        {{
+            'arrivalStation': '{searchCriteria.Route.Airport1.Code}',
+            'departureDate': '{inboundDate.GetValueOrDefault(searchCriteria.FromDate).ToString("yyyy-MM-dd")}',
+            'departureStation': '{searchCriteria.Route.Airport2.Code}'
+        }}
+    ],
+    'infantCount': 0,
+    'isFlightChange': false,
+    'isSeniorOrStudent': false,
+    'rescueFareCode': '',
+    'wdc': true
 }}".Replace("'", "\"");
         }
     }

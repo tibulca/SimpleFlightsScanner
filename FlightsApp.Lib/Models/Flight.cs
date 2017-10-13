@@ -19,22 +19,26 @@ namespace FlightsApp.Lib.Models
 
         public static List<Flight> FromWizzairFlight(WizzairFlights.Flight flight)
         {
-            if (flight.priceType == "soldOut")
+            var flights = new List<Flight>();
+
+            if (flight.priceType != "soldOut")
             {
-                return new List<Flight>();
+                for (int i = 0; i < flight.departureDates.Count; i++)
+                {
+                    flights.Add(new Flight
+                    {
+                        From = Airport.FromCode(flight.departureStation),
+                        To = Airport.FromCode(flight.arrivalStation),
+                        DateFrom = flight.departureDates[i],
+                        DateTo = flight.arrivalDates[i],
+                        Price = flight.price.amount,
+                        CurrencyCode = flight.price.currencyCode,
+                        Airline = Airline.Wizzair
+                    });
+                }
             }
 
-            return flight.departureDates
-                         .Select((date) => new Flight
-                         {
-                            From = Airport.FromCode(flight.departureStation),
-                            To = Airport.FromCode(flight.arrivalStation),
-                            DateFrom = date,
-                            DateTo = date.AddHours(2), // todo: get the correct hour using normal search? 
-                            Price = flight.price.amount,
-                            CurrencyCode = flight.price.currencyCode,
-                            Airline = Airline.Wizzair
-                         }).ToList();
+            return flights;
         }
 
         public static List<Flight> FromRyanairFlight(RyanairFlights flights)
