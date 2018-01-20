@@ -47,7 +47,16 @@ namespace FlightsApp.Lib.SearchProviders.Ryanair
             var flexDays = DateUtils.DaysDiff(searchCriteria.FromDate, searchCriteria.ToDate);
             var url = $"https://desktopapps.ryanair.com/en-gb/availability?ADT=1&CHD=0&DateIn={searchCriteria.FromDateString}&DateOut={searchCriteria.FromDateString}&Destination={searchCriteria.Route.Airport2.Code}&FlexDaysIn={flexDays}&FlexDaysOut={flexDays}&INF=0&Origin={searchCriteria.Route.Airport1.Code}&RoundTrip=true&ToUs=AGREED&TEEN=0";
 
-			var httpResult = await apiHttpClient.SendAsync(url, HttpMethod.Get, null, null, null);
+            var headers = new Dictionary<string, string>
+            {
+                { "Cookie", "RYANSESSION=WjU-xwolAvIAAHoTKwUAAAAn" },
+                { "Accept-Language", "en-US,en;q=0.9,ro;q=0.8" },
+                { "Accept", "*/*" },
+                { "Accept-Encoding", "gzip, deflate "},
+                { "user-agent", "PostmanRuntime/7.1.1 "}
+            };
+
+            var httpResult = await apiHttpClient.SendAsync(url, HttpMethod.Get, null, null, headers);
 
 			return Deserialize<RyanairFlights>(httpResult);
 		}

@@ -124,7 +124,9 @@ namespace FlightsApp.Lib.SearchProviders.Wizzair
             'to': '{searchCriteria.ToDateString}'
         }}
     ],
-    'priceType': 'wdc'
+    'priceType': 'wdc',
+    'adultCount': 1,
+    'childCount': 0
 }}".Replace("'", "\"");
         }
 
