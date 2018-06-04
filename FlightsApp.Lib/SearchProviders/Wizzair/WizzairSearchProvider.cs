@@ -38,6 +38,9 @@ namespace FlightsApp.Lib.SearchProviders.Wizzair
             var httpResult = await apiHttpClient.SendAsync(url, HttpMethod.Post, requestBody, contentType, headers);
 
 			var flights = Deserialize<WizzairFlights>(httpResult);
+            flights.outboundFlights = flights.outboundFlights ?? new List<WizzairFlights.Flight>();
+            flights.returnFlights = flights.returnFlights ?? new List<WizzairFlights.Flight>();
+
 
             if (flights.outboundFlights.Any())
             {

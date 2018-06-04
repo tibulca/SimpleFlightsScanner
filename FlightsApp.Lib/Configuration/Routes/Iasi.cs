@@ -13,6 +13,14 @@ namespace FlightsApp.Lib.Configuration.Routes
             Airport.Bologna,
             Airport.MilanBergamo,
             Airport.VeniceTreviso,
+            Airport.BrusselsCharleroi,
+            Airport.ParisBeauvais,
+            Airport.Eindhoven,
+            Airport.Malmo,
+            Airport.Billund,
+            Airport.Eindhoven,
+            Airport.Dortmund,
+            Airport.BrusselsCharleroi,
 
             // tarom - for stopover
             Airport.Bucharest,

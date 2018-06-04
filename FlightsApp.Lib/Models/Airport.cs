@@ -40,6 +40,13 @@ namespace FlightsApp.Lib.Models
         public static Airport Koln = new Airport("CGN", "Köln");
         public static Airport FrankfurtHahn = new Airport("HHN", "Frankfurt Hahn");
         public static Airport Memmingen = new Airport("FMM", "Memmingen");
+        public static Airport Dortmund = new Airport("DTM", "Dortmund");
+
+        // Denmark
+        public static Airport Billund = new Airport("BLL", "Billund");
+
+        // Sweden
+        public static Airport Malmo = new Airport("MMX", "Malmo");
 
         // France
         public static Airport ParisBeauvais = new Airport("BVA", "Paris Beauvais");
@@ -67,6 +74,7 @@ namespace FlightsApp.Lib.Models
         public static Airport Valencia = new Airport("VLC", "Valencia");
 
 
+        public static Airport Catania = new Airport("CTA", "Catania");
 
 
 
