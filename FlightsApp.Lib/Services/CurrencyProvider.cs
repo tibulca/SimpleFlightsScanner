@@ -18,7 +18,7 @@ namespace FlightsApp.Lib.Services
 
         public async Task<CurrencyRates> GetEurRates()
         {
-            var httpResult = await apiHttpClient.GetAsync("http://api.fixer.io/latest");
+            var httpResult = await apiHttpClient.GetAsync("http://data.fixer.io/api/latest?access_key=34493ea46a5613c620e452d27ed93104&format=1");
             var currencyRates = JsonSerializer.FromJson<CurrencyRates>(httpResult);
 
             return currencyRates;
